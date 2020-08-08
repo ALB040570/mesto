@@ -1,0 +1,15 @@
+@import url(./__like/element__like.css);
+@import url(./__photo/element__photo.css);
+@import url(./__title/element__title.css);
+
+.element {
+display: grid;
+grid-template-columns: 240.24px 41.76px;
+grid-template-rows: 282px 79px;
+justify-content: center;
+align-items: center;
+width: 282px;
+height: 361px;
+background-color: #ffffff;
+border-radius: 10px;
+}

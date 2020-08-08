@@ -1,0 +1,18 @@
+.profile__profession {
+  grid-area: profession;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #FFFFFF;
+  margin: 0;
+  align-self: flex-start;
+}
+
+/*точки перелома*/
+@media screen and (max-width: 769px)  {
+  .profile__profession {
+    font-size: 14px;
+    line-height: 1.21;
+    text-align: center;
+  }
+}

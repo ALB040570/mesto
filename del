@@ -1,0 +1,679 @@
+
+/* Footer */
+
+position: absolute;
+width: 318px;
+height: 18px;
+left: 199px;
+top: 1139px;
+
+
+
+/* © 2020 Mesto Russia */
+
+position: absolute;
+width: 318px;
+height: 18px;
+left: 199px;
+top: 1139px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #545454;
+
+
+
+/* Elements */
+
+position: absolute;
+width: 882px;
+height: 744px;
+left: 199px;
+top: 329px;
+
+
+
+/* Element */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 199px;
+top: 330px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 199px;
+top: 330px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+
+/* Карачаевск */
+
+position: absolute;
+width: 246px;
+height: 23px;
+left: 220px;
+top: 637px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+
+color: #000000;
+
+
+
+/* kirill-pershin-1088404-unsplash */
+
+position: absolute;
+width: 282px;
+height: 282px;
+left: 199px;
+top: 330px;
+
+background: url(kirill-pershin-1088404-unsplash.jpg);
+border-radius: 10px 10px 0px 0px;
+
+
+/* Group */
+
+position: absolute;
+left: 34.22%;
+right: 64.16%;
+top: 52.83%;
+bottom: 45.68%;
+
+
+
+/* Vector */
+
+position: absolute;
+height: 18.13px;
+left: 34.22%;
+right: 64.16%;
+top: 643px;
+
+background: #000000;
+
+
+/* Element */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 499px;
+top: 330px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 499px;
+top: 330px;
+
+background: #FFFFFF;
+box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+border-radius: 10px;
+
+
+/* Гора Эльбрус */
+
+position: absolute;
+width: 246px;
+height: 23px;
+left: 520px;
+top: 637px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+
+color: #000000;
+
+
+
+/* kirill-pershin-1404681-unsplash */
+
+position: absolute;
+width: 282px;
+height: 282px;
+left: 781px;
+top: 330px;
+
+background: url(kirill-pershin-1404681-unsplash.jpg);
+border-radius: 10px 10px 0px 0px;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Group */
+
+position: absolute;
+left: 57.97%;
+right: 40.41%;
+top: 52.83%;
+bottom: 45.68%;
+
+
+
+/* Vector */
+
+position: absolute;
+height: 18.13px;
+left: 57.97%;
+right: 40.41%;
+top: 643px;
+
+border: 1px solid #000000;
+box-sizing: border-box;
+
+
+/* Element */
+
+position: absolute;
+width: 282px;
+height: 362px;
+left: 799px;
+top: 329px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 799px;
+top: 330px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+
+/* Домбай */
+
+position: absolute;
+width: 106px;
+height: 23px;
+left: 820px;
+top: 636px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+
+color: #000000;
+
+
+
+/* kirill-pershin-1556355-unsplash */
+
+position: absolute;
+width: 282px;
+height: 282px;
+left: 799px;
+top: 329px;
+
+background: url(kirill-pershin-1556355-unsplash.jpg);
+border-radius: 10px 10px 0px 0px;
+
+
+/* Group */
+
+position: absolute;
+left: 81.48%;
+right: 16.89%;
+top: 52.83%;
+bottom: 45.68%;
+
+
+
+/* Vector */
+
+position: absolute;
+height: 18.13px;
+left: 81.48%;
+right: 16.89%;
+top: 643px;
+
+background: #000000;
+
+
+/* Element */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 799px;
+top: 712px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 799px;
+top: 712px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+
+/* Карачаево-Ч... */
+
+position: absolute;
+width: 246px;
+height: 23px;
+left: 820px;
+top: 1019px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+
+color: #000000;
+
+
+
+/* kirill-pershin-1088404-unsplash */
+
+position: absolute;
+width: 282px;
+height: 282px;
+left: 799px;
+top: 712px;
+
+background: url(kirill-pershin-1088404-unsplash.jpg);
+border-radius: 10px 10px 0px 0px;
+
+
+/* Group */
+
+position: absolute;
+left: 81.09%;
+right: 17.28%;
+top: 84.22%;
+bottom: 14.29%;
+
+
+
+/* Vector */
+
+position: absolute;
+height: 18.13px;
+left: 81.09%;
+right: 17.28%;
+top: 1025px;
+
+background: #000000;
+
+
+/* Element */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 199px;
+top: 712px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 199px;
+top: 712px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+
+/* Гора Эльбрус */
+
+position: absolute;
+width: 246px;
+height: 23px;
+left: 220px;
+top: 1019px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+
+color: #000000;
+
+
+
+/* kirill-pershin-1404681-unsplash */
+
+position: absolute;
+width: 282px;
+height: 282px;
+left: 481px;
+top: 712px;
+
+background: url(kirill-pershin-1404681-unsplash.jpg);
+border-radius: 10px 10px 0px 0px;
+transform: matrix(-1, 0, 0, 1, 0, 0);
+
+
+/* Group */
+
+position: absolute;
+left: 34.53%;
+right: 63.85%;
+top: 84.22%;
+bottom: 14.29%;
+
+
+
+/* Vector */
+
+position: absolute;
+height: 18.13px;
+left: 34.53%;
+right: 63.85%;
+top: 1025px;
+
+border: 1px solid #000000;
+box-sizing: border-box;
+
+
+/* Element */
+
+position: absolute;
+width: 282px;
+height: 362px;
+left: 499px;
+top: 711px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 282px;
+height: 361px;
+left: 499px;
+top: 712px;
+
+background: #FFFFFF;
+border-radius: 10px;
+
+
+/* Домбай */
+
+position: absolute;
+width: 106px;
+height: 23px;
+left: 520px;
+top: 1018px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+
+color: #000000;
+
+
+
+/* kirill-pershin-1556355-unsplash */
+
+position: absolute;
+width: 282px;
+height: 282px;
+left: 499px;
+top: 711px;
+
+background: url(kirill-pershin-1556355-unsplash.jpg);
+border-radius: 10px 10px 0px 0px;
+
+
+/* Group */
+
+position: absolute;
+left: 58.05%;
+right: 40.33%;
+top: 84.22%;
+bottom: 14.29%;
+
+
+
+/* Vector */
+
+position: absolute;
+height: 18.13px;
+left: 58.05%;
+right: 40.33%;
+top: 1025px;
+
+background: #000000;
+
+
+/* Profile */
+
+position: absolute;
+width: 882px;
+height: 120px;
+left: 199px;
+top: 159px;
+
+
+
+/* Add Button */
+
+position: absolute;
+width: 150px;
+height: 50px;
+left: 931px;
+top: 194px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 150px;
+height: 50px;
+left: 931px;
+top: 194px;
+
+border: 2px solid #FFFFFF;
+box-sizing: border-box;
+border-radius: 2px;
+
+
+/* Vector */
+
+position: absolute;
+height: 22px;
+left: 77.73%;
+right: 20.55%;
+top: 208px;
+
+background: #FFFFFF;
+
+
+/* Profile Info */
+
+position: absolute;
+width: 336px;
+height: 77px;
+left: 349px;
+top: 177px;
+
+
+
+/* Жак-Ив Кусто */
+
+position: absolute;
+width: 295px;
+height: 43px;
+left: 349px;
+top: 177px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: 500;
+font-size: 42px;
+line-height: 56px;
+/* or 133% */
+
+color: #FFFFFF;
+
+
+
+/* Исследователь океана */
+
+position: absolute;
+width: 318px;
+height: 18px;
+left: 350px;
+top: 236px;
+
+font-family: Inter;
+font-style: normal;
+font-weight: normal;
+font-size: 18px;
+line-height: 22px;
+
+color: #FFFFFF;
+
+
+
+/* Edit Button */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 661px;
+top: 196px;
+
+
+
+/* Rectangle */
+
+position: absolute;
+width: 24px;
+height: 24px;
+left: 661px;
+top: 196px;
+
+border: 1px solid #FFFFFF;
+box-sizing: border-box;
+
+
+/* Vector */
+
+position: absolute;
+left: 52.19%;
+right: 47.03%;
+top: 16.68%;
+bottom: 82.5%;
+
+background: #FFFFFF;
+
+
+/* Avatar */
+
+position: absolute;
+width: 120px;
+height: 120px;
+left: 199px;
+top: 159px;
+
+
+
+/* Ellipse */
+
+position: absolute;
+width: 120px;
+height: 120px;
+left: 199px;
+top: 159px;
+
+background: #C4C4C4;
+
+
+/* image */
+
+position: absolute;
+width: 168.75px;
+height: 127.5px;
+left: 176.5px;
+top: 155.25px;
+
+background: url(image.jpg);
+
+
+/* Header */
+
+position: absolute;
+width: 882px;
+height: 74px;
+left: 199px;
+top: 45px;
+
+
+
+/* Line */
+
+position: absolute;
+width: 882px;
+height: 0px;
+left: 199px;
+top: 119px;
+
+opacity: 0.7;
+border: 1px solid #545454;
+
+
+/* logo */
+
+position: absolute;
+width: 142.01px;
+height: 33.4px;
+left: 201.88px;
+top: 45px;
+
+
+
+/* Vector */
+
+position: absolute;
+width: 142.01px;
+height: 33.4px;
+left: 201.88px;
+top: 45px;
+
+background: #FFFFFF;
