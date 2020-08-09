@@ -26,13 +26,14 @@ openPopupButton.addEventListener('click', popupToggle);
 closePopupButton.addEventListener('click', popupToggle);
 popup.addEventListener('click', closePopup);
 
-const formElement = popup.querySelector('.popup__save');
+const formElement = popup.querySelector('.popup__conteiner');
 function formSubmitHandler (evt) {
     evt.preventDefault();
     name.textContent = inputValName.value;
     profession.textContent = inputValProfession.value;
     popupToggle(evt);
 }
-formElement.addEventListener('click', formSubmitHandler);
+formElement.addEventListener('submit', formSubmitHandler);
+
 
 

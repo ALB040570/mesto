@@ -9,6 +9,7 @@
   min-height: 50.15px;
   border: none;
   border-radius: 2px;
+  min-width: 358px;
 }
 
 .popup__save:hover {
@@ -20,6 +21,7 @@
 @media screen and (max-width: 639px)  {
   .popup__save {
     font-size: 16px;
+    min-width: 178px;
   }
 }
 

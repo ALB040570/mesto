@@ -7,4 +7,12 @@
   border-bottom: solid 1px rgba(0, 0, 0, .2);
   padding: 0;
   padding-bottom: 13.14px;
+  min-width: 358px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 639px)  {
+  .popup__profession {
+    min-width: 178px;
+  }
 }
