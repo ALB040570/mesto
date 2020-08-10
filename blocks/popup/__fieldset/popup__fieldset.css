@@ -2,17 +2,9 @@
   padding: 0;
   margin: 34px 0 0;
   border: none;
-  width: 430px;
-  height: 296px;
   display: flex;
   flex-direction: column;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-  padding-block-start: 0;
-  padding-inline-start: 0;
-  padding-inline-end: 0;
-  padding-block-end: 0;
-  min-inline-size: 0;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 639px)  {

@@ -1,8 +1,8 @@
 const popup = document.querySelector('.popup');
 const openPopupButton = document.querySelector('.profile__button-edit');
 const closePopupButton = popup.querySelector('.popup__close');
-const inputValName = popup.querySelector('.popup__name');
-const inputValProfession = popup.querySelector('.popup__profession');
+const inputValName = popup.querySelector('input[name="popup-name"]');
+const inputValProfession = popup.querySelector('input[name="popup-profession"]');
 const name = document.querySelector('.profile__name');
 const profession = document.querySelector('.profile__profession');
 const popupToggle = function(event) {
