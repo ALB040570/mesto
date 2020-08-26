@@ -121,6 +121,9 @@ function formSubmitHandleradd (evt) {
   element.querySelector('.element__photo').src = inputValLink.value;
   element.querySelector('.element__photo').alt = 'фото места "' + inputValNamePhoto.value + '"';
   element.querySelector('.element__title').textContent = inputValNamePhoto.value;
+  element.querySelector('.element__like').addEventListener('click', function (evt) {
+    return evt.target.classList.toggle("element__like_active");
+  });
 
   // отображаем на странице
   elements.prepend(element);

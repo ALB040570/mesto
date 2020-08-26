@@ -37,8 +37,12 @@ const element = template_element.cloneNode(true);
 element.querySelector('.element__photo').src = item.link;
 element.querySelector('.element__photo').alt = 'фото места "' + item.name + '"';
 element.querySelector('.element__title').textContent = item.name;
+element.querySelector('.element__like').addEventListener('click', function (evt) {
+  return evt.target.classList.toggle("element__like_active");
+});
 
 // отображаем на странице
 elements.append(element);
 });
+
 
