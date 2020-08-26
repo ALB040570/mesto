@@ -2,6 +2,7 @@
 @import url(./__photo/element__photo.css);
 @import url(./__title/element__title.css);
 @import url(./__like/_active/element__like_active.css);
+@import url(./__trash/element__trash.css);
 
 .element {
 display: grid;

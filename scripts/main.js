@@ -40,9 +40,24 @@ element.querySelector('.element__title').textContent = item.name;
 element.querySelector('.element__like').addEventListener('click', function (evt) {
   return evt.target.classList.toggle("element__like_active");
 });
+element.querySelector('.element__trash').addEventListener('click', function(evt) {
+  evt.target.closest('.element').remove();
+})
 
 // отображаем на странице
 elements.append(element);
+
 });
+
+// слушаем контейнер с карточками
+elements.addEventListener('click', function (evt) {
+  if (evt.target !== evt.currentTarget) {
+    return;
+  }
+});
+
+
+
+
 
 

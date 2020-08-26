@@ -1,0 +1,22 @@
+.element__trash {
+  background-image: url(../../../images/Trash.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 18px;
+  height: 19.3px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0);
+  grid-area: 1/ 2/ 2/ 3;
+  border: none;
+  padding: 0;
+  align-self: start;
+  margin-top: 18px;
+  z-index: 99;
+}
+
+.element__trash:hover {
+  background-image: url(../../../images/Trash\ \(1\).png);
+  transition: background-image 1s linear;
+}
+
