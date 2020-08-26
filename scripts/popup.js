@@ -33,7 +33,6 @@ popup_window.append(popup_add);
 const openPopupButton = document.querySelector('.profile__button-edit');
 const openPopupButtonAdd = document.querySelector('.profile__button-add');
 
-
 // переменные для редактирования
 const pop_edit = document.querySelector('#edit');
 const closePopupButton_edit = pop_edit.querySelector('.popup__close');
@@ -48,19 +47,21 @@ const closePopupButton_add = pop_add.querySelector('.popup__close');
 const inputValNamePhoto = pop_add.querySelector('input[name="photo-name"]');
 const inputValLink = pop_add.querySelector('input[name="photo-link"]');
 
-
+//открываает и заполняет форму для редактирования
 const pop_editToggle = function(event) {
   event.preventDefault();
   pop_edit.classList.toggle('popup_opened');
   inputVal();
 }
 
+//открывает и заполняет форму для добавления фото
 const pop_addToggle = function(event) {
   event.preventDefault();
   pop_add.classList.toggle('popup_opened');
   inputVal();
 }
 
+//закрывает форму для редактирования
 const closePopup_edit = function(event) {
   if (event.target!==event.currentTarget) {
     return;
@@ -69,6 +70,8 @@ const closePopup_edit = function(event) {
 
   }
 }
+
+//закрывает форму для добавления фото
 const closePopup_add = function(event) {
   if (event.target!==event.currentTarget) {
     return;
@@ -77,15 +80,16 @@ const closePopup_add = function(event) {
 
   }
 }
-const inputVal = function() {
 
+// функция заполнения полей ввода
+const inputVal = function() {
   inputValName.value = name.textContent;
   inputValProfession.value =profession.textContent;
   inputValNamePhoto.value = 'Название';
   inputValLink.value = "Ссылка на картинку";
-
 }
 
+//реакция на действия пользователя
 openPopupButton.addEventListener('click', pop_editToggle);
 openPopupButtonAdd.addEventListener('click',pop_addToggle);
 closePopupButton_edit.addEventListener('click', pop_editToggle);
@@ -93,14 +97,34 @@ closePopupButton_add.addEventListener('click', pop_addToggle);
 pop_edit.addEventListener('click', closePopup_edit);
 pop_add.addEventListener('click', closePopup_add);
 
-// сохранение редактииррования
-const formElement = pop_edit.querySelector('.popup__conteiner');
+// сохранение данных формы редактирования
+const formElement_edit = pop_edit.querySelector('.popup__conteiner');
 function formSubmitHandler (evt) {
-    evt.preventDefault();
-    name.textContent = inputValName.value;
-    profession.textContent = inputValProfession.value;
-    pop_editToggle(evt);
+  evt.preventDefault();
+  name.textContent = inputValName.value;
+  profession.textContent = inputValProfession.value;
+  pop_editToggle(evt);
 }
-formElement.addEventListener('submit', formSubmitHandler);
+formElement_edit.addEventListener('submit', formSubmitHandler);
 
+//вставка фото
+const formElement_add = pop_add.querySelector('.popup__conteiner');
+function formSubmitHandleradd (evt) {
+  evt.preventDefault();
+  const template_element = document.querySelector('#template_element').content;
+  const elements = document.querySelector('.elements');
 
+  // клонируем содержимое тега template
+  const element = template_element.cloneNode(true);
+
+  // наполняем содержимым
+  element.querySelector('.element__photo').src = inputValLink.value;
+  element.querySelector('.element__photo').alt = 'фото места "' + inputValNamePhoto.value + '"';
+  element.querySelector('.element__title').textContent = inputValNamePhoto.value;
+
+  // отображаем на странице
+  elements.prepend(element);
+
+  pop_addToggle(evt);
+}
+formElement_add.addEventListener('submit', formSubmitHandleradd);
