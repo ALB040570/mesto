@@ -25,13 +25,13 @@ const initialCards = [
   }
 ];
 
-const template = document.querySelector('#template_element').content;
+const template_element = document.querySelector('#template_element').content;
 const elements = document.querySelector('.elements');
 
 initialCards.forEach(function(item) {
 
 // клонируем содержимое тега template
-const element = template.cloneNode(true);
+const element = template_element.cloneNode(true);
 
 // наполняем содержимым
 element.querySelector('.element__photo').src = item.link;
