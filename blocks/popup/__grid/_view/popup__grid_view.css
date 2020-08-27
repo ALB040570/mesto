@@ -1,0 +1,12 @@
+.popup__grid_view {
+  top: calc(50vh - 75vh/2);
+  left: calc(50vw - 75vw/2);
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 639px)  {
+  .popup__grid_view {
+    top: calc(70vh - 75vh/2);
+    left: calc(50vw - 75vw/2);
+  }
+}

@@ -1,12 +1,14 @@
 .popup__grid {
   position: fixed;
   display: grid;
-  width: 477px;
-  height: 377px;
+  /*width: 477px;
+  height: 377px;*/
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(2, auto);
   top: 130px;
   left: calc(50% - 477px/2);
+
+
 }
 
 

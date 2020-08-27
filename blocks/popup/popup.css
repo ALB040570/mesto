@@ -1,11 +1,16 @@
 @import url(./__grid/popup__grid.css);
+@import url(./__grid/_view/popup__grid_view.css);
 @import url(./__fieldset/popup__fieldset.css);
 @import url(./__title/popup__title.css);
 @import url(./__close/popup__close.css);
 @import url(./__conteiner/popup__conteiner.css);
+@import url(./__conteiner/_view/popup__conteiner_view.css);
 @import url(./__input/popup__input.css);
 @import url(./__input/_second/popup__input_second.css);
 @import url(./__save/popup__save.css);
+@import url(./__image-conteiner/popup__image-conteiner.css);
+@import url(./__image/popup__image.css);
+@import url(./__caption/popup__caption.css);
 
 
 .popup {
@@ -22,7 +27,10 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   font-style: normal;
-  display: none;
+  /*display: none;*/
+  visibility: hidden;
+  opacity: 0;
+  transition:opacity 1s linear;
+  z-index: 1;
+
 }
-
-
