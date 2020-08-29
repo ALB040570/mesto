@@ -1,6 +1,6 @@
 .popup_view {
   background-color: rgba(0, 0, 0, .9);
- /* display:flex;*/
+ display:flex;
   align-items:center;
   justify-content:center;
 }
