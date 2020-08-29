@@ -28,7 +28,43 @@
       <p class="footer__text">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-
+  <div class="popup" id="edit">
+    <div class="popup__grid">
+      <button type="reset" class="popup__close"></button>
+      <form action=# name="info" class="popup__conteiner">
+        <fieldset class="popup__fieldset">
+          <legend class="popup__title">"Редактировать профиль"</legend>
+          <input class="popup__input" name = "popup-name">
+          <input class="popup__input popup__input_second" name = "popup-profession">
+          <button type="submit" class="popup__save">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="popup" id="add">
+    <div class="popup__grid">
+      <button type="reset" class="popup__close"></button>
+      <form action=# name="photo" class="popup__conteiner">
+        <fieldset class="popup__fieldset">
+          <legend class="popup__title">"Новое место"</legend>
+          <input class="popup__input" name = "photo-name">
+          <input class="popup__input popup__input_second" name = "photo-link">
+          <button type="submit" class="popup__save">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_view" id="view">
+    <div class="popup__grid popup__grid_view">
+      <button type="reset" class="popup__close"></button>
+      <div class="popup__conteiner popup__conteiner_view">
+        <figure class="popup__image-conteiner">
+          <img  class="popup__image">
+          <figcaption class="popup__caption"></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
   <template id="template_element">
     <li class="element">
       <img  alt="фото места" class="element__photo">
@@ -36,36 +72,6 @@
       <button type="button" class="element__like"></button>
       <button type="button" class="element__trash"></button>
     </li>
-  </template>
-
-  <template id="template_popup">
-    <div class="popup">
-      <div class="popup__grid">
-        <button type="reset" class="popup__close"></button>
-        <form action=# class="popup__conteiner">
-          <fieldset class="popup__fieldset">
-            <legend class="popup__title"></legend>
-            <input class="popup__input">
-            <input class="popup__input popup__input_second">
-            <button type="submit" class="popup__save">Сохранить</button>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-  </template>
-
-  <template id="template_view">
-    <div class="popup popup_view">
-      <div class="popup__grid popup__grid_view">
-        <button type="reset" class="popup__close"></button>
-        <div class="popup__conteiner popup__conteiner_view">
-          <figure class="popup__image-conteiner">
-            <img  class="popup__image">
-            <figcaption class="popup__caption"></figcaption>
-          </figure>
-        </div>
-      </div>
-    </div>
   </template>
 
   <script src="./scripts/main.js"></script>

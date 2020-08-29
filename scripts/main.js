@@ -25,13 +25,14 @@ const initialCards = [
   }
 ];
 //заполняем карточки с фото из массива
-const template_element = document.querySelector('#template_element').content;
+const templateElement = document.querySelector('#template_element').content;
 const elements = document.querySelector('.elements');
+const Viewer = document.querySelector('#view');//окно просмотра фото;
 
 initialCards.forEach(function(item) {
 
   // клонируем содержимое тега template
-  const element = template_element.cloneNode(true);
+  const element = templateElement.cloneNode(true);
 
   // наполняем содержимым
   element.querySelector('.element__photo').src = item.link;
@@ -46,10 +47,10 @@ initialCards.forEach(function(item) {
   });// обработчик для корзины
 
   element.querySelector('.element__photo').addEventListener('click',function(evt) {
-    pop_view.classList.toggle('popup_opened');
-    pop_view.querySelector('.popup__image').src = evt.target.src;
-    pop_view.querySelector('.popup__image').alt = evt.target.alt;
-    pop_view.querySelector('.popup__caption').textContent = evt.target.alt.substr(11);
+    Viewer.classList.toggle('popup_opened');
+    Viewer.querySelector('.popup__image').src = evt.target.src;
+    Viewer.querySelector('.popup__image').alt = evt.target.alt;
+    Viewer.querySelector('.popup__caption').textContent = evt.target.alt.substr(11);
 
   });//обработчик фото
 
