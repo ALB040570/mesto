@@ -29,42 +29,41 @@ const templateElement = document.querySelector('#template_element').content;
 const elements = document.querySelector('.elements');
 const Viewer = document.querySelector('#view');//окно просмотра фото;
 
-initialCards.forEach(function(item) {
-
+const getCardElement = data => {
   // клонируем содержимое тега template
-  const element = templateElement.cloneNode(true);
+  const CardElement = templateElement.cloneNode(true);
 
   // наполняем содержимым
-  element.querySelector('.element__photo').src = item.link;
-  element.querySelector('.element__photo').alt = 'фото места "' + item.name + '"';
+  const photo = CardElement.querySelector('.element__photo');
+  photo.src = data.link;
+  photo.alt = `фото места ${data.name} "`;
+  CardElement.querySelector('.element__title').textContent = data.name;
 
-  element.querySelector('.element__title').textContent = item.name;
-  element.querySelector('.element__like').addEventListener('click', function (evt) {
-    return evt.target.classList.toggle("element__like_active");
-  }); //обработчик лайков
-  element.querySelector('.element__trash').addEventListener('click', function(evt) {
-    evt.target.closest('.element').remove();
-  });// обработчик для корзины
+  //устанавливает обработчики:
+  CardElement.querySelector('.element__trash').addEventListener('click', handleDeleteCard);
+  CardElement.querySelector('.element__like').addEventListener('click', handleLikeIcon);
+  CardElement.querySelector('.element__photo').addEventListener('click', () => handlePreviewPicture (data.name, data.link));
+  return CardElement;
+};
 
-  element.querySelector('.element__photo').addEventListener('click',function(evt) {
-    Viewer.classList.toggle('popup_opened');
-    Viewer.querySelector('.popup__image').src = evt.target.src;
-    Viewer.querySelector('.popup__image').alt = evt.target.alt;
-    Viewer.querySelector('.popup__caption').textContent = evt.target.alt.substr(11);
+const handleDeleteCard = evt => {evt.target.closest('.element').remove()};// удаляет картинку
 
-  });//обработчик фото
+const handleLikeIcon = evt => {evt.target.classList.toggle("element__like_active")};//изменяет иконку лайка
 
-  // отображаем на странице
-  elements.append(element);
+const handlePreviewPicture = (name, link) => {
+  Viewer.classList.toggle('popup_opened');
+  const picture = Viewer.querySelector('.popup__image');
+  picture.src = link;
+  picture.alt = name;
+  Viewer.querySelector('.popup__caption').textContent = name;
+};
 
+const renderCard = index => {elements.prepend(getCardElement(index));};//использует функцию возвращения разметки карточки добавляя ее на страницу
+
+initialCards.forEach(function(item) {
+  renderCard(item);
 });
 
-// слушаем контейнер с карточками
-elements.addEventListener('click', function (evt) {
-  if (evt.target !== evt.currentTarget) {
-    return;
-  }
-});
 
 
 

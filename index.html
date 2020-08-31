@@ -30,12 +30,12 @@
   </div>
   <div class="popup" id="edit">
     <div class="popup__grid">
-      <button type="reset" class="popup__close"></button>
+      <button type="button" class="popup__close"></button>
       <form action=# name="info" class="popup__conteiner">
         <fieldset class="popup__fieldset">
-          <legend class="popup__title">"Редактировать профиль"</legend>
-          <input class="popup__input" name = "popup-name">
-          <input class="popup__input popup__input_second" name = "popup-profession">
+          <legend class="popup__title">Редактировать профиль</legend>
+          <input placeholder="Введите имя" required class="popup__input" name = "popup-name">
+          <input placeholder="Введите информацию о деятельности" required class="popup__input popup__input_type_description" name = "popup-profession">
           <button type="submit" class="popup__save">Сохранить</button>
         </fieldset>
       </form>
@@ -43,20 +43,20 @@
   </div>
   <div class="popup" id="add">
     <div class="popup__grid">
-      <button type="reset" class="popup__close"></button>
+      <button type="button" class="popup__close"></button>
       <form action=# name="photo" class="popup__conteiner">
         <fieldset class="popup__fieldset">
-          <legend class="popup__title">"Новое место"</legend>
-          <input class="popup__input" name = "photo-name">
-          <input class="popup__input popup__input_second" name = "photo-link">
+          <legend class="popup__title">Новое место</legend>
+          <input placeholder="Название" required class="popup__input" name = "photo-name">
+          <input placeholder="Ссылка для картинки" required class="popup__input popup__input_type_description" name = "photo-link">
           <button type="submit" class="popup__save">Сохранить</button>
         </fieldset>
       </form>
     </div>
   </div>
   <div class="popup popup_view" id="view">
-    <div class="popup__grid popup__grid_view">
-      <button type="reset" class="popup__close"></button>
+    <div class="popup__grid">
+      <button type="button" class="popup__close"></button>
       <div class="popup__conteiner popup__conteiner_view">
         <figure class="popup__image-conteiner">
           <img src="#" alt="" class="popup__image">

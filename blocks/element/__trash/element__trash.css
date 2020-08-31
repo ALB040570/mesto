@@ -4,7 +4,7 @@
   background-position: center;
   background-size: contain;
   width: 18px;
-  height: 19.3px;
+  height: 19px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0);
   grid-area: 1/ 2/ 2/ 2;
@@ -18,5 +18,6 @@
 .element__trash:hover {
   background-image: url(../../../images/Trash\ \(1\).png);
   transition: background-image 1s linear;
+  cursor: pointer;
 }
 

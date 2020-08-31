@@ -17,6 +17,7 @@
   transition: background-image 1s linear;
   border: 1px solid rgba(250, 250, 250, .6);
   transition: border 1s linear;
+  cursor: pointer;
 }
 
  /*точки перелома*/

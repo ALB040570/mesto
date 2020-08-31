@@ -4,7 +4,7 @@
   background-position: center;
   background-size: contain;
   width: 21px;
-  height: 18.13px;
+  height: 18px;
   box-sizing: border-box;
   background-color: #ffffff;
   grid-area: 2/ 2/ 2/ 2;
@@ -15,4 +15,5 @@
 .element__like:hover {
   opacity: .3;
   transition: opacity 1s linear;
+  cursor: pointer;
 }
