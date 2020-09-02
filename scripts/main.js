@@ -26,8 +26,8 @@ const initialCards = [
 ];
 //заполняем карточки с фото из массива
 const templateElement = document.querySelector('#template_element').content;
-const elements = document.querySelector('.elements');
-const Viewer = document.querySelector('#view');//окно просмотра фото;
+const collectionPlace = document.querySelector('.elements');
+const viewer = document.querySelector('#view');//окно просмотра фото;
 
 const getCardElement = data => {
   // клонируем содержимое тега template
@@ -42,7 +42,7 @@ const getCardElement = data => {
   //устанавливает обработчики:
   CardElement.querySelector('.element__trash').addEventListener('click', handleDeleteCard);
   CardElement.querySelector('.element__like').addEventListener('click', handleLikeIcon);
-  CardElement.querySelector('.element__photo').addEventListener('click', () => handlePreviewPicture (data.name, data.link));
+  CardElement.querySelector('.element__photo').addEventListener('click', () => handlePreviewPicture (data));
   return CardElement;
 };
 
@@ -50,15 +50,15 @@ const handleDeleteCard = evt => {evt.target.closest('.element').remove()};// у�
 
 const handleLikeIcon = evt => {evt.target.classList.toggle("element__like_active")};//изменяет иконку лайка
 
-const handlePreviewPicture = (name, link) => {
-  Viewer.classList.toggle('popup_opened');
-  const picture = Viewer.querySelector('.popup__image');
-  picture.src = link;
-  picture.alt = name;
-  Viewer.querySelector('.popup__caption').textContent = name;
+const handlePreviewPicture = (data) => {
+  popupToggle(viewer);
+  const picture = viewer.querySelector('.popup__image');
+  picture.src = data.link;
+  picture.alt = data.name;
+  viewer.querySelector('.popup__caption').textContent = data.name;
 };
 
-const renderCard = index => {elements.prepend(getCardElement(index));};//использует функцию возвращения разметки карточки добавляя ее на страницу
+const renderCard = index => {collectionPlace.prepend(getCardElement(index));};//использует функцию возвращения разметки карточки добавляя ее на страницу
 
 initialCards.forEach(function(item) {
   renderCard(item);
