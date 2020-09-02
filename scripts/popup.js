@@ -61,10 +61,10 @@ function formSubmitHandleradd (evt) {
     name: inputValNamePhoto.value,
     link: inputValLink.value,
   };
+
   renderCard(newPhoto);
+  document.getElementById('photo').reset();
   popupToggle(addForm);
-  inputValNamePhoto.value="";
-  inputValLink.value="";
 }
 popupConteinerForAdd.addEventListener('submit', formSubmitHandleradd);
 
