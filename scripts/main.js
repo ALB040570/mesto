@@ -51,7 +51,7 @@ const handleDeleteCard = evt => {evt.target.closest('.element').remove()};// у�
 const handleLikeIcon = evt => {evt.target.classList.toggle("element__like_active")};//изменяет иконку лайка
 
 const handlePreviewPicture = (data) => {
-  popupToggle(viewer);
+  openPopup(viewer);
   const picture = viewer.querySelector('.popup__image');
   picture.src = data.link;
   picture.alt = data.name;

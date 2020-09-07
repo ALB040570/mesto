@@ -21,35 +21,51 @@ const inputValNamePhoto = addForm.querySelector('input[name="photo-name"]');//п
 const inputValLink = addForm.querySelector('input[name="photo-link"]');// поле для ввода ссылки
 const popupConteinerForAdd = addForm .querySelector('.popup__form');
 
-//функция переключения класса
-const popupToggle = (popup) =>{
- if (event.target!==event.currentTarget) {
-  return;
-}else {
-  popup.classList.toggle('popup_opened');
+//функция открытия окна
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keyup',closeByEsc);
+  document.addEventListener('mousedown',closeByOverlay);
 }
+//функция закрытия окна
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keyup',closeByEsc);
+  document.removeEventListener('mousedown',closeByOverlay);
+}
+
+//функция закрытия окна по Esc
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    closePopup(document.querySelector('.popup_opened'));
+  }
+}
+
+//функция закрытия окна по overlay
+function closeByOverlay(evt) {
+  if (evt.target.classList.contains('popup_opened'))
+    closePopup(document.querySelector('.popup_opened'));
 }
 
 //реакция на действия пользователя
 openPopupButtonEdit.addEventListener('click', ()=>{
   inputValName.value = name.textContent;
   inputValProfession.value =profession.textContent;
-  popupToggle(editForm);
+  openPopup(editForm);
 });
-openPopupButtonAdd.addEventListener('click',()=> popupToggle(addForm));
-closeButtonEditForm.addEventListener('click', ()=> popupToggle(editForm));
-closeButtonAddForm.addEventListener('click', ()=> popupToggle(addForm));
-closeButtonViewer.addEventListener('click',()=> popupToggle(viewer));
-editForm.addEventListener('click', ()=> popupToggle(editForm));//закрывается форма редактирования профиля без сохранения, если кликнуть вне формы
-addForm.addEventListener('click', ()=> popupToggle(addForm));//закрывается форма добавления фото без сохранения, если кликнуть вне формы
-viewer.addEventListener('click',()=> popupToggle(viewer));//закрывается окно просмотра фото, если кликнуть вне фото
+
+openPopupButtonAdd.addEventListener('click',()=> openPopup(addForm));
+closeButtonEditForm.addEventListener('click', ()=> closePopup(editForm));
+closeButtonAddForm.addEventListener('click', ()=> closePopup(addForm));
+closeButtonViewer.addEventListener('click',()=> closePopup(viewer));
+
 
 // сохранение данных формы редактирования инфы о пользователе
 function formSubmitHandler (evt) {
   evt.preventDefault();
   name.textContent = inputValName.value;
   profession.textContent = inputValProfession.value;
-  popupToggle(editForm);
+  closePopup(editForm);
 }
 popupConteinerForEdit.addEventListener('submit', formSubmitHandler);
 
@@ -63,7 +79,7 @@ function formSubmitHandleradd (evt) {
 
   renderCard(newPhoto);
   document.getElementById('photo').reset();
-  popupToggle(addForm);
+  closePopup(addForm);
 }
 popupConteinerForAdd.addEventListener('submit', formSubmitHandleradd);
 
