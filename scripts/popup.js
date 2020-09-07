@@ -12,14 +12,14 @@ const inputValName = editForm.querySelector('input[name="popup-name"]');// по�
 const inputValProfession = editForm.querySelector('input[name="popup-profession"]');//поле для ввода пррофессии
 const name = document.querySelector('.profile__name');//имя из профиля
 const profession = document.querySelector('.profile__profession');// профессия из профиля
-const popupConteinerForEdit = editForm.querySelector('.popup__conteiner');
+const popupConteinerForEdit = editForm.querySelector('.popup__form');
 
 // константы для добавления фото
 const addForm = document.querySelector('#add');//форма
 const closeButtonAddForm = addForm.querySelector('.popup__close');//кнопка закрытия
 const inputValNamePhoto = addForm.querySelector('input[name="photo-name"]');//поле для ввода названия
 const inputValLink = addForm.querySelector('input[name="photo-link"]');// поле для ввода ссылки
-const popupConteinerForAdd = addForm .querySelector('.popup__conteiner');
+const popupConteinerForAdd = addForm .querySelector('.popup__form');
 
 //функция переключения класса
 const popupToggle = (popup) =>{
@@ -29,7 +29,6 @@ const popupToggle = (popup) =>{
   popup.classList.toggle('popup_opened');
 }
 }
-
 
 //реакция на действия пользователя
 openPopupButtonEdit.addEventListener('click', ()=>{

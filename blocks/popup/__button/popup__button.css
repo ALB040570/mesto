@@ -1,4 +1,4 @@
-.popup__save {
+.popup__button {
   margin: 48px 36px 37px;
   background-color: #000000;
   color: #ffffff;
@@ -10,9 +10,10 @@
   border: none;
   border-radius: 2px;
   min-width: 358px;
+  pointer-events: inherit;
 }
 
-.popup__save:hover {
+.popup__button:hover {
   opacity: .8;
   transition: opacity 1s linear;
   cursor: pointer;
@@ -20,7 +21,7 @@
 }
 
 @media screen and (max-width: 639px)  {
-  .popup__save {
+  .popup__button {
     font-size: 16px;
     min-width: 178px;
   }

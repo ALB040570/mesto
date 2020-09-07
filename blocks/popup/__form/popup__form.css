@@ -1,4 +1,4 @@
-.popup__conteiner {
+.popup__form {
   grid-area: 2/ 1/ 3/ 1;
   padding: 0;
   margin: 0;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 639px)  {
-  .popup__conteiner {
+  .popup__form {
     max-width: 75vw;
   }
 }
