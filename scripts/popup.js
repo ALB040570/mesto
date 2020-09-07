@@ -43,8 +43,9 @@ function closeByEsc(evt) {
 
 //функция закрытия окна по overlay
 function closeByOverlay(evt) {
-  if (evt.target.classList.contains('popup_opened'))
+  if (evt.target.classList.contains('popup_opened')) {
     closePopup(document.querySelector('.popup_opened'));
+  }
 }
 
 //реакция на действия пользователя
