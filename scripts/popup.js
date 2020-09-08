@@ -27,6 +27,7 @@ const openPopup = (popup) => {
   document.addEventListener('keyup',closeByEsc);
   document.addEventListener('mousedown',closeByOverlay);
 }
+
 //функция закрытия окна
 const closePopup = (popup) => {
   popup.classList.remove('popup_opened');
@@ -53,9 +54,14 @@ openPopupButtonEdit.addEventListener('click', ()=>{
   inputValName.value = name.textContent;
   inputValProfession.value =profession.textContent;
   openPopup(editForm);
+  validationForOpen(editForm, parametrs);
 });
 
-openPopupButtonAdd.addEventListener('click',()=> openPopup(addForm));
+openPopupButtonAdd.addEventListener('click',()=> {
+  openPopup(addForm);
+  validationForOpen(addForm, parametrs);
+});
+
 closeButtonEditForm.addEventListener('click', ()=> closePopup(editForm));
 closeButtonAddForm.addEventListener('click', ()=> closePopup(addForm));
 closeButtonViewer.addEventListener('click',()=> closePopup(viewer));
@@ -81,6 +87,7 @@ function formSubmitHandleradd (evt) {
   renderCard(newPhoto);
   document.getElementById('photo').reset();
   closePopup(addForm);
+
 }
 popupConteinerForAdd.addEventListener('submit', formSubmitHandleradd);
 
