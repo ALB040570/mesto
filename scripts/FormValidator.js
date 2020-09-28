@@ -3,7 +3,7 @@
 //принимает вторым параметром элемент той формы, которая валидируется;
 
 export class FormValidator {
-  constructor(parametrs, popup) {
+  constructor(parametrs, form) {
     this.formSelector = parametrs.formSelector;
     this.inputSelector = parametrs.inputSelector;
     this.submitButtonSelector = parametrs.submitButtonSelector;
@@ -11,7 +11,9 @@ export class FormValidator {
     this.inputErrorClass = parametrs.inputErrorClass;
     this.errorClass = parametrs.errorClass;
     this.formFieldset = parametrs.formFieldset;
-    this.popup = popup;
+    this.form = form;
+
+    this._checkInputValidity = this._checkInputValidity.bind(this);
 
   }
 //функция вставляет текст переданного сообщения об ошибке и включает выделение переданного input
@@ -32,7 +34,7 @@ _hideInputError = (formElement, inputElement) => {
 
 //функция вызывает функцию  showInputError(набор полей, input, сообщение об ошибке), если input не проходит валидацию,
 //наче - вызывает функцию  hideInputError(набор полей, input)
- _checkInputValidity = (formElement, inputElement) => {
+ _checkInputValidity = function(formElement, inputElement) {
   if (!inputElement.validity.valid) {
     this._showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -64,15 +66,21 @@ _toggleButtonState = function(inputList, buttonElement) {
 // и устанавливает слушатель каждого изменения данных в поле ввода для каждого input в наборе полей
 // для каждого изменения в поле ввода данных вызываются две функции: checkInputValidity(набор полей, input)
 //и toggleButtonState(массив inputов, кнопка отправки данных)
-_setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll(this.inputSelector));
-  const buttonElement = formElement.querySelector(this.submitButtonSelector);
-  this._toggleButtonState(inputList, buttonElement);
+_setEventListeners = () => {
 
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      this._checkInputValidity(formElement, inputElement);
-      this._toggleButtonState(inputList, buttonElement);
+  const inputList = Array.from(this.form.querySelectorAll(this.inputSelector));
+  const buttonElement = this.form.querySelector(this.submitButtonSelector);
+  debugger
+  this._toggleButtonState(inputList, buttonElement);
+  const formForBind = this.form;
+
+
+  inputList.forEach((item) => {
+    debugger
+    item.addEventListener('input', function () {
+      debugger
+      this._checkInputValidity(formForBind, item);
+      _toggleButtonState(inputList, buttonElement);
     });
   });
 };
@@ -81,7 +89,7 @@ _setEventListeners = (formElement) => {
 // удаляет текст сообщения об ошибке и отключает кнопку отправки данных,
 //если находит хотя бы одно невалидное input, иначе включает кнопку отправки данных
  validationForOpen = () => {
-  const fieldSet = this.popup.querySelector(this.formFieldset);
+  const fieldSet = this.form.querySelector(this.formFieldset);
   const inputList = Array.from(fieldSet.querySelectorAll(this.inputSelector));
   const buttonElement = fieldSet.querySelector(this.submitButtonSelector);
   this._toggleButtonState(inputList, buttonElement);
@@ -91,16 +99,13 @@ _setEventListeners = (formElement) => {
     });
   };
 
-
-
 // функция устанавливает слушатель отправки данных для каждой формы документа
 // и для каждого набора полей каждой формы вызывает функцию setEventListeners(набор полей)
  enableValidation = () => {
-  const fieldSet = this.popup.querySelector(this.formFieldset);
-  fieldSet.addEventListener('submit', function (evt) {
+  this.form.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-  this._setEventListeners(fieldSet);
+  this._setEventListeners();
 };
 
 };

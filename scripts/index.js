@@ -63,9 +63,10 @@ const inputValLink = addForm.querySelector('input[name="photo-link"]');// пол
 const popupConteinerForAdd = addForm .querySelector('.popup__form');//форма добавления фото
 
 
-const validatorEditForm = new FormValidator(parametrs, editForm);
+const validatorEditForm = new FormValidator(parametrs, popupConteinerForEdit);
+debugger
 validatorEditForm.enableValidation();
-const validatorAddForm = new FormValidator(parametrs, addForm);
+const validatorAddForm = new FormValidator(parametrs, popupConteinerForAdd);
 validatorAddForm.enableValidation();
 
 //ФУНЦИИ
@@ -132,16 +133,16 @@ openPopupButtonEdit.addEventListener('click', ()=>{
   inputValName.value = name.textContent;
   inputValProfession.value =profession.textContent;
   openPopup(editForm);
-  const validatorOpenEditForm = new FormValidator(parametrs, editForm)
-  validatorOpenEditForm.validationForOpen();
+  // const validatorOpenEditForm = new FormValidator(parametrs, popupConteinerForEdit)
+  // validatorOpenEditForm.validationForOpen();
 });
-//клик по кнопке Добавить открываает всплывающее окно Добавления карточки
+//клик по кнопке Добавить открывает всплывающее окно Добавления карточки
 openPopupButtonAdd.addEventListener('click',()=> {
   openPopup(addForm);
-  const validatorOpenAddForm = new FormValidator(parametrs, addForm)
-  validatorOpenAddForm.validationForOpen();
+  // const validatorOpenAddForm = new FormValidator(parametrs, popupConteinerForAdd)
+  // validatorOpenAddForm.validationForOpen();
 });
-// закрытия всплываающих окон
+// закрытия всплывающих окон
 closeButtonEditForm.addEventListener('click', ()=> closePopup(editForm));//клик по крестику закроет всплываающее окно редактирования
 closeButtonAddForm.addEventListener('click', ()=> closePopup(addForm));//клик по крестику закроет всплываающее окно добавления карточки
 closeButtonViewer.addEventListener('click',()=> closePopup(viewer));//клик по крестику закроет всплываающее окно просмотра фото
