@@ -13,7 +13,7 @@ export class FormValidator {
     this.formFieldset = parametrs.formFieldset;
     this.form = form;
 
-    this._checkInputValidity = this._checkInputValidity.bind(this);
+    // this._checkInputValidity = this._checkInputValidity.bind(this);
 
   }
 //функция вставляет текст переданного сообщения об ошибке и включает выделение переданного input
@@ -34,7 +34,7 @@ _hideInputError = (formElement, inputElement) => {
 
 //функция вызывает функцию  showInputError(набор полей, input, сообщение об ошибке), если input не проходит валидацию,
 //наче - вызывает функцию  hideInputError(набор полей, input)
- _checkInputValidity = function(formElement, inputElement) {
+ _checkInputValidity = (formElement, inputElement) =>{
   if (!inputElement.validity.valid) {
     this._showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -72,15 +72,15 @@ _setEventListeners = () => {
   const buttonElement = this.form.querySelector(this.submitButtonSelector);
   debugger
   this._toggleButtonState(inputList, buttonElement);
-  const formForBind = this.form;
+  // const formForBind = this.form;
 
 
   inputList.forEach((item) => {
     debugger
     item.addEventListener('input', function () {
       debugger
-      this._checkInputValidity(formForBind, item);
-      _toggleButtonState(inputList, buttonElement);
+      _=>{this._checkInputValidity(this.form, item)};
+      _=>{this.toggleButtonState(inputList, buttonElement)};
     });
   });
 };
@@ -89,6 +89,7 @@ _setEventListeners = () => {
 // удаляет текст сообщения об ошибке и отключает кнопку отправки данных,
 //если находит хотя бы одно невалидное input, иначе включает кнопку отправки данных
  validationForOpen = () => {
+   debugger
   const fieldSet = this.form.querySelector(this.formFieldset);
   const inputList = Array.from(fieldSet.querySelectorAll(this.inputSelector));
   const buttonElement = fieldSet.querySelector(this.submitButtonSelector);

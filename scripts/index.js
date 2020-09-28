@@ -63,11 +63,7 @@ const inputValLink = addForm.querySelector('input[name="photo-link"]');// пол
 const popupConteinerForAdd = addForm .querySelector('.popup__form');//форма добавления фото
 
 
-const validatorEditForm = new FormValidator(parametrs, popupConteinerForEdit);
-debugger
-validatorEditForm.enableValidation();
-const validatorAddForm = new FormValidator(parametrs, popupConteinerForAdd);
-validatorAddForm.enableValidation();
+
 
 //ФУНЦИИ
 // отрисовываются карточки с фото
@@ -152,7 +148,11 @@ popupConteinerForEdit.addEventListener('submit', formSubmitHandler);//отпра
 popupConteinerForAdd.addEventListener('submit', formSubmitHandleradd);//вставка фото
 
 //установка валидаторов
-
+const validatorEditForm = new FormValidator(parametrs, popupConteinerForEdit);
+debugger
+validatorEditForm.enableValidation();
+const validatorAddForm = new FormValidator(parametrs, popupConteinerForAdd);
+validatorAddForm.enableValidation();
 
 
 
