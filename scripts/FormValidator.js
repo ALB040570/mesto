@@ -80,7 +80,7 @@ _setEventListeners = () => {
     item.addEventListener('input', function () {
       debugger
       _=>{this._checkInputValidity(this.form, item)};
-      _=>{this.toggleButtonState(inputList, buttonElement)};
+      _=>{this._toggleButtonState(inputList, buttonElement)};
     });
   });
 };
