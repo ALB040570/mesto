@@ -144,17 +144,13 @@ openPopupButtonEdit.addEventListener('click', ()=>{
   inputValProfession.value =profession.textContent;
   openPopup(editForm);
   validatorEditForm.enableValidation();
-  // validationForOpen(editForm, parametrs);
-  // const validatorOpenEditForm = new FormValidator(parametrs, popupConteinerForEdit)
-  // validatorOpenEditForm.validationForOpen();
+
 });
 //клик по кнопке Добавить открывает всплывающее окно Добавления карточки
 openPopupButtonAdd.addEventListener('click',()=> {
   openPopup(addForm);
   validatorAddForm.enableValidation();
-  // validationForOpen(addForm, parametrs);
-  // const validatorOpenAddForm = new FormValidator(parametrs, popupConteinerForAdd)
-  // validatorOpenAddForm.validationForOpen();
+
 });
 // закрытия всплывающих окон
 closeButtonEditForm.addEventListener('click', ()=> closePopup(editForm));//клик по крестику закроет всплываающее окно редактирования

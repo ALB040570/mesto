@@ -13,6 +13,7 @@ export class FormValidator {
     this.errorClass = parametrs.errorClass;
     this.formFieldset = parametrs.formFieldset;
   }
+
 //имеет один публичный метод enableValidation, который включает валидацию формы
   enableValidation = () =>{
     const inputList = Array.from(this.fieldSet.querySelectorAll(this.inputSelector));
@@ -24,6 +25,7 @@ export class FormValidator {
       });
     this._setEventListeners(inputList, buttonElement);
   }
+
 //имеет приватные методы, которые обрабатывают форму:
 // проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики
   //функция вставляет текст переданного сообщения об ошибке и включает выделение переданного input
@@ -54,7 +56,6 @@ export class FormValidator {
     });
   };
 
-
 //функция вызывает функцию  showInputError(набор полей, input, сообщение об ошибке), если input не проходит валидацию,
 //наче - вызывает функцию  hideInputError(набор полей, input)
   _checkInputValidity = (formElement, inputElement) => {
@@ -64,6 +65,7 @@ export class FormValidator {
       this._hideInputError(formElement, inputElement);
     }
   };
+
 // функция ищет невалидное значение один раз для каждого элемента массива переданных inputов,
 // до тех пор, пока не найдет таковое. Если такой элемент найден вернёт true, иначе - false.
   _hasInvalidInput = (inputList) => {
@@ -83,5 +85,4 @@ export class FormValidator {
         buttonElement.removeAttribute('disabled');
     }
   };
-
 }
