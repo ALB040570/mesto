@@ -40,8 +40,9 @@ export const parametrs = {
   errorClass: 'popup__error_visible',
   formFieldset: '.popup__fieldset'
 };
-export const collectionPlace = document.querySelector('.elements'); //место куда вставляется карточка
+const collectionPlace = document.querySelector('.elements'); //место куда вставляется карточка
 export const viewer = document.querySelector('#view');//окно просмотра фото
+export const picture = viewer.querySelector('.popup__image');
 const closeButtonViewer = viewer.querySelector('.popup__close');//кнопка закрытия окна просмотра фото
 const openPopupButtonEdit = document.querySelector('.profile__button-edit');//кнопка запуска формы для редактирования
 const openPopupButtonAdd = document.querySelector('.profile__button-add');//кнопка запуска формы добавления фото
@@ -61,7 +62,7 @@ const closeButtonAddForm = addForm.querySelector('.popup__close');//кнопка
 const inputValNamePhoto = addForm.querySelector('input[name="photo-name"]');//поле для ввода названия
 const inputValLink = addForm.querySelector('input[name="photo-link"]');// поле для ввода ссылки
 const popupConteinerForAdd = addForm .querySelector('.popup__form');//форма добавления фото
-
+const photo = document.getElementById('photo');
 
 
 
@@ -70,7 +71,7 @@ const popupConteinerForAdd = addForm .querySelector('.popup__form');//форма
 //для каждого объекта из массива initialCards создается объекткласса Card и выполняется метод render
 initialCards.forEach(function(item) {
   const card = new Card(item,'#template_element');
-  card.render(collectionPlace);
+  collectionPlace.prepend(card.createCard());
 });
 
 //функция открытия всплывающего окна
@@ -117,8 +118,8 @@ function formSubmitHandleradd (evt) {
     link: inputValLink.value,
   };
   const cardNew = new Card(newPhoto,'#template_element');
-  cardNew.render(collectionPlace);
-  document.getElementById('photo').reset();
+  collectionPlace.prepend(cardNew.createCard());
+  photo.reset();
   closePopup(addForm);
 }
 
