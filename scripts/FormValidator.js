@@ -1,9 +1,10 @@
 // класс FormValidator, который настраивает валидацию полей формы:
-//принимает в конструктор объект настроек с селекторами и классами формы;
-//принимает вторым параметром элемент той формы, которая валидируется;
+//принимает в конструктор объект настроек с селекторами и классами формы
+//принимает вторым параметром элемент той формы, которая валидируется
 
 export class FormValidator {
-  constructor(parametrs, form) {
+  constructor(parametrs, fieldSet) {
+    this.fieldSet = fieldSet;
     this.formSelector = parametrs.formSelector;
     this.inputSelector = parametrs.inputSelector;
     this.submitButtonSelector = parametrs.submitButtonSelector;
@@ -11,102 +12,76 @@ export class FormValidator {
     this.inputErrorClass = parametrs.inputErrorClass;
     this.errorClass = parametrs.errorClass;
     this.formFieldset = parametrs.formFieldset;
-    this.form = form;
-
-    // this._checkInputValidity = this._checkInputValidity.bind(this);
-
   }
-//функция вставляет текст переданного сообщения об ошибке и включает выделение переданного input
- _showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.add(this.inputErrorClass);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add(this.errorClass);
-};
-
-//функция удаляет текст сообщения об ошибке и убирает выделение переданного input
-_hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-  inputElement.classList.remove(this.inputErrorClass);
-  errorElement.classList.remove(this.errorClass);
-  errorElement.textContent = '';
-};
-
-//функция вызывает функцию  showInputError(набор полей, input, сообщение об ошибке), если input не проходит валидацию,
-//наче - вызывает функцию  hideInputError(набор полей, input)
- _checkInputValidity = (formElement, inputElement) =>{
-  if (!inputElement.validity.valid) {
-    this._showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    this._hideInputError(formElement, inputElement);
+//имеет один публичный метод enableValidation, который включает валидацию формы
+  enableValidation = () =>{
+    const inputList = Array.from(this.fieldSet.querySelectorAll(this.inputSelector));
+    const buttonElement = this.fieldSet.querySelector(this.submitButtonSelector);
+    this._toggleButtonState(inputList, buttonElement);
+    inputList.forEach((item) => {
+        this._hideInputError(this.fieldSet, item);
+        this._toggleButtonState(inputList, buttonElement);
+      });
+    this._setEventListeners(inputList, buttonElement);
   }
-};
+//имеет приватные методы, которые обрабатывают форму:
+// проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики
+  //функция вставляет текст переданного сообщения об ошибке и включает выделение переданного input
+   _showInputError = (formElement, inputElement, errorMessage, formObj) => {
+    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.add(this.inputErrorClass);
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add(this.errorClass);
+  };
 
-// функция ищет невалидное значение один раз для каждого элемента массива переданных inputов,
-// до тех пор, пока не найдет таковое. Если такой элемент найден вернёт true, иначе - false.
-_hasInvalidInput = function(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
+  //функция удаляет текст сообщения об ошибке и убирает выделение переданного input
+  _hideInputError = (formElement, inputElement) => {
+    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+    inputElement.classList.remove(this.inputErrorClass);
+    errorElement.classList.remove(this.errorClass);
+    errorElement.textContent = '';
+  };
 
-// функция делает недоступной и другого стиля кнопку отправки данных, если результатом функции  hasInvalidInput(переданный  массив inputов) = true,
-//иначе - делает кнопку доступной и возвращает ее активый стиль
-_toggleButtonState = function(inputList, buttonElement) {
-  if (this._hasInvalidInput(inputList)) {
-    buttonElement.classList.add(this.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
-  } else {
-      buttonElement.classList.remove(this.inactiveButtonClass);
-      buttonElement.removeAttribute('disabled');
-  }
-};
-
-// функция вызывает функцию toggleButtonState(массив inputов, кнопка отправки данных) для кнопки отправки данных в переданном наборе полей
-// и устанавливает слушатель каждого изменения данных в поле ввода для каждого input в наборе полей
+  // функция устанавливает слушатель каждого изменения данных в поле ввода для каждого input в наборе полей
 // для каждого изменения в поле ввода данных вызываются две функции: checkInputValidity(набор полей, input)
 //и toggleButtonState(массив inputов, кнопка отправки данных)
-_setEventListeners = () => {
-
-  const inputList = Array.from(this.form.querySelectorAll(this.inputSelector));
-  const buttonElement = this.form.querySelector(this.submitButtonSelector);
-  debugger
-  this._toggleButtonState(inputList, buttonElement);
-  // const formForBind = this.form;
-
-
-  inputList.forEach((item) => {
-    debugger
-    item.addEventListener('input', function () {
-      debugger
-      _=>{this._checkInputValidity(this.form, item)};
-      _=>{this._toggleButtonState(inputList, buttonElement)};
-    });
-  });
-};
-
-//функция работает без слушателя изменения в inputах: проверяет все inputы переданного набора полей
-// удаляет текст сообщения об ошибке и отключает кнопку отправки данных,
-//если находит хотя бы одно невалидное input, иначе включает кнопку отправки данных
- validationForOpen = () => {
-   debugger
-  const fieldSet = this.form.querySelector(this.formFieldset);
-  const inputList = Array.from(fieldSet.querySelectorAll(this.inputSelector));
-  const buttonElement = fieldSet.querySelector(this.submitButtonSelector);
-  this._toggleButtonState(inputList, buttonElement);
-  inputList.forEach((item) => {
-      this._hideInputError(fieldSet, item);
-      this._toggleButtonState(inputList, buttonElement);
+  _setEventListeners = (inputList, buttonElement) => {
+    inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input',  () => {
+        this._checkInputValidity(this.fieldSet, inputElement);
+        this._toggleButtonState(inputList, buttonElement);
+      });
     });
   };
 
-// функция устанавливает слушатель отправки данных для каждой формы документа
-// и для каждого набора полей каждой формы вызывает функцию setEventListeners(набор полей)
- enableValidation = () => {
-  this.form.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
-  this._setEventListeners();
-};
 
-};
+//функция вызывает функцию  showInputError(набор полей, input, сообщение об ошибке), если input не проходит валидацию,
+//наче - вызывает функцию  hideInputError(набор полей, input)
+  _checkInputValidity = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+      this._showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+      this._hideInputError(formElement, inputElement);
+    }
+  };
+// функция ищет невалидное значение один раз для каждого элемента массива переданных inputов,
+// до тех пор, пока не найдет таковое. Если такой элемент найден вернёт true, иначе - false.
+  _hasInvalidInput = (inputList) => {
+    return inputList.some((inputElement) => {
+      return !inputElement.validity.valid;
+    });
+  };
+
+  // функция делает недоступной и другого стиля кнопку отправки данных, если результатом функции  hasInvalidInput(переданный  массив inputов) = true,
+  //иначе - делает кнопку доступной и возвращает ее активый стиль
+  _toggleButtonState = (inputList, buttonElement) => {
+    if (this._hasInvalidInput(inputList)) {
+      buttonElement.classList.add(this.inactiveButtonClass);
+      buttonElement.setAttribute('disabled', true);
+    } else {
+        buttonElement.classList.remove(this.inactiveButtonClass);
+        buttonElement.removeAttribute('disabled');
+    }
+  };
+
+}

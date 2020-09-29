@@ -122,6 +122,20 @@ function formSubmitHandleradd (evt) {
   closePopup(addForm);
 }
 
+//установка валидаторов
+const formList = Array.from(document.querySelectorAll(parametrs.formSelector));
+formList.forEach((item) => {
+  item.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+  });
+});
+const fieldSetEdit = popupConteinerForEdit.querySelector(parametrs.formFieldset);
+const validatorEditForm = new FormValidator(parametrs, fieldSetEdit);
+validatorEditForm.enableValidation();
+const fieldSetAdd = popupConteinerForAdd.querySelector(parametrs.formFieldset);
+const validatorAddForm = new FormValidator(parametrs, fieldSetAdd);
+validatorAddForm.enableValidation();
+
 //РЕАКЦИИ НА ДЕЙСТВИЯ ПОЛЬЗОВАТЕЛЯ
 //открытия всплывающих окон
 //клик на кнопку редактирования открывает всплывающее окно редактирования
@@ -129,12 +143,16 @@ openPopupButtonEdit.addEventListener('click', ()=>{
   inputValName.value = name.textContent;
   inputValProfession.value =profession.textContent;
   openPopup(editForm);
+  validatorEditForm.enableValidation();
+  // validationForOpen(editForm, parametrs);
   // const validatorOpenEditForm = new FormValidator(parametrs, popupConteinerForEdit)
   // validatorOpenEditForm.validationForOpen();
 });
 //клик по кнопке Добавить открывает всплывающее окно Добавления карточки
 openPopupButtonAdd.addEventListener('click',()=> {
   openPopup(addForm);
+  validatorAddForm.enableValidation();
+  // validationForOpen(addForm, parametrs);
   // const validatorOpenAddForm = new FormValidator(parametrs, popupConteinerForAdd)
   // validatorOpenAddForm.validationForOpen();
 });
@@ -147,12 +165,6 @@ closeButtonViewer.addEventListener('click',()=> closePopup(viewer));//клик �
 popupConteinerForEdit.addEventListener('submit', formSubmitHandler);//отправка данных формы редактирования
 popupConteinerForAdd.addEventListener('submit', formSubmitHandleradd);//вставка фото
 
-//установка валидаторов
-const validatorEditForm = new FormValidator(parametrs, popupConteinerForEdit);
-debugger
-validatorEditForm.enableValidation();
-const validatorAddForm = new FormValidator(parametrs, popupConteinerForAdd);
-validatorAddForm.enableValidation();
 
 
 
