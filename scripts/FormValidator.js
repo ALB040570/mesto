@@ -3,44 +3,45 @@
 //принимает вторым параметром элемент той формы, которая валидируется
 
 export class FormValidator {
-  constructor(parametrs, fieldSet) {
-    this.fieldSet = fieldSet;
-    this.formSelector = parametrs.formSelector;
-    this.inputSelector = parametrs.inputSelector;
-    this.submitButtonSelector = parametrs.submitButtonSelector;
-    this.inactiveButtonClass = parametrs.inactiveButtonClass;
-    this.inputErrorClass = parametrs.inputErrorClass;
-    this.errorClass = parametrs.errorClass;
-    this.formFieldset = parametrs.formFieldset;
+  constructor(parametrs, fieldSet, popup) {
+    this._fieldSet = fieldSet;
+    this._formSelector = parametrs.formSelector;
+    this._inputSelector = parametrs.inputSelector;
+    this._submitButtonSelector = parametrs.submitButtonSelector;
+    this._inactiveButtonClass = parametrs.inactiveButtonClass;
+    this._inputErrorClass = parametrs.inputErrorClass;
+    this._errorClass = parametrs.errorClass;
+    this._formFieldset = parametrs.formFieldset;
+    this.openButtonSelector=parametrs.openButtonSelector;
   }
 
 //имеет один публичный метод enableValidation, который включает валидацию формы
   enableValidation = () =>{
-    const inputList = Array.from(this.fieldSet.querySelectorAll(this.inputSelector));
-    const buttonElement = this.fieldSet.querySelector(this.submitButtonSelector);
+    const inputList = Array.from(this._fieldSet.querySelectorAll(this._inputSelector));
+    const buttonElement = this._fieldSet.querySelector(this._submitButtonSelector);
     this._toggleButtonState(inputList, buttonElement);
     inputList.forEach((item) => {
-        this._hideInputError(this.fieldSet, item);
-        this._toggleButtonState(inputList, buttonElement);
+      this._hideInputError(this._fieldSet, item);
+      this._toggleButtonState(inputList, buttonElement);
       });
     this._setEventListeners(inputList, buttonElement);
-  }
+    }
 
 //имеет приватные методы, которые обрабатывают форму:
 // проверяют валидность поля, изменяют состояние кнопки сабмита, устанавливают все обработчики
   //функция вставляет текст переданного сообщения об ошибке и включает выделение переданного input
    _showInputError = (formElement, inputElement, errorMessage, formObj) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.add(this.inputErrorClass);
+    inputElement.classList.add(this._inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this.errorClass);
+    errorElement.classList.add(this._errorClass);
   };
 
   //функция удаляет текст сообщения об ошибке и убирает выделение переданного input
   _hideInputError = (formElement, inputElement) => {
     const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    inputElement.classList.remove(this.inputErrorClass);
-    errorElement.classList.remove(this.errorClass);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   };
 
@@ -50,11 +51,22 @@ export class FormValidator {
   _setEventListeners = (inputList, buttonElement) => {
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input',  () => {
-        this._checkInputValidity(this.fieldSet, inputElement);
+        this._checkInputValidity(this._fieldSet, inputElement);
         this._toggleButtonState(inputList, buttonElement);
       });
     });
-  };
+    const sector = document.querySelector('.profile');
+    const openButton = Array.from(sector.querySelectorAll(this.openButtonSelector));
+    openButton.forEach((item) => {
+      item.addEventListener('click', () => {
+        // this._resetForm(inputList);
+        inputList.forEach((input) => {
+          this._hideInputError(this._fieldSet, input);
+        });
+        this._toggleButtonState(inputList, buttonElement);
+      });
+    });
+};
 
 //функция вызывает функцию  showInputError(набор полей, input, сообщение об ошибке), если input не проходит валидацию,
 //наче - вызывает функцию  hideInputError(набор полей, input)
@@ -70,6 +82,7 @@ export class FormValidator {
 // до тех пор, пока не найдет таковое. Если такой элемент найден вернёт true, иначе - false.
   _hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
+      console.log(inputElement.value);
       return !inputElement.validity.valid;
     });
   };
@@ -78,10 +91,10 @@ export class FormValidator {
   //иначе - делает кнопку доступной и возвращает ее активый стиль
   _toggleButtonState = (inputList, buttonElement) => {
     if (this._hasInvalidInput(inputList)) {
-      buttonElement.classList.add(this.inactiveButtonClass);
+      buttonElement.classList.add(this._inactiveButtonClass);
       buttonElement.setAttribute('disabled', true);
     } else {
-        buttonElement.classList.remove(this.inactiveButtonClass);
+        buttonElement.classList.remove(this._inactiveButtonClass);
         buttonElement.removeAttribute('disabled');
     }
   };

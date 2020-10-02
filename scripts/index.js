@@ -38,8 +38,10 @@ export const parametrs = {
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible',
-  formFieldset: '.popup__fieldset'
+  formFieldset: '.popup__fieldset',
+  openButtonSelector:'button',
 };
+
 const collectionPlace = document.querySelector('.elements'); //место куда вставляется карточка
 export const viewer = document.querySelector('#view');//окно просмотра фото
 export const picture = viewer.querySelector('.popup__image');
@@ -123,20 +125,6 @@ function formSubmitHandleradd (evt) {
   closePopup(addForm);
 }
 
-//установка валидаторов
-const formList = Array.from(document.querySelectorAll(parametrs.formSelector));
-formList.forEach((item) => {
-  item.addEventListener('submit', function (evt) {
-    evt.preventDefault();
-  });
-});
-const fieldSetEdit = popupConteinerForEdit.querySelector(parametrs.formFieldset);
-const validatorEditForm = new FormValidator(parametrs, fieldSetEdit);
-validatorEditForm.enableValidation();
-const fieldSetAdd = popupConteinerForAdd.querySelector(parametrs.formFieldset);
-const validatorAddForm = new FormValidator(parametrs, fieldSetAdd);
-validatorAddForm.enableValidation();
-
 //РЕАКЦИИ НА ДЕЙСТВИЯ ПОЛЬЗОВАТЕЛЯ
 //открытия всплывающих окон
 //клик на кнопку редактирования открывает всплывающее окно редактирования
@@ -144,15 +132,15 @@ openPopupButtonEdit.addEventListener('click', ()=>{
   inputValName.value = name.textContent;
   inputValProfession.value =profession.textContent;
   openPopup(editForm);
-  validatorEditForm.enableValidation();
-
 });
+
 //клик по кнопке Добавить открывает всплывающее окно Добавления карточки
 openPopupButtonAdd.addEventListener('click',()=> {
   openPopup(addForm);
-  validatorAddForm.enableValidation();
-
+  inputValNamePhoto.value = '';
+  inputValLink.value='';
 });
+
 // закрытия всплывающих окон
 closeButtonEditForm.addEventListener('click', ()=> closePopup(editForm));//клик по крестику закроет всплываающее окно редактирования
 closeButtonAddForm.addEventListener('click', ()=> closePopup(addForm));//клик по крестику закроет всплываающее окно добавления карточки
@@ -162,14 +150,16 @@ closeButtonViewer.addEventListener('click',()=> closePopup(viewer));//клик �
 popupConteinerForEdit.addEventListener('submit', formSubmitHandler);//отправка данных формы редактирования
 popupConteinerForAdd.addEventListener('submit', formSubmitHandleradd);//вставка фото
 
-
-
-
-
-
-
-
-
-
-
-
+//установка валидаторов
+const formList = Array.from(document.querySelectorAll(parametrs.formSelector));
+formList.forEach((item) => {
+  item.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+  });
+});
+const fieldSetEdit = popupConteinerForEdit.querySelector(parametrs.formFieldset);
+const validatorEditForm = new FormValidator(parametrs, fieldSetEdit, editForm);
+validatorEditForm.enableValidation();
+const fieldSetAdd = popupConteinerForAdd.querySelector(parametrs.formFieldset);
+const validatorAddForm = new FormValidator(parametrs, fieldSetAdd, addForm);
+validatorAddForm.enableValidation();
