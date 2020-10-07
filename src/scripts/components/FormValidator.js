@@ -2,7 +2,7 @@
 //принимает в конструктор объект настроек с селекторами и классами формы
 //принимает вторым параметром элемент той формы, которая валидируется
 
-export class FormValidator {
+export default class FormValidator {
   constructor(parametrs, fieldSet, popup) {
     this._fieldSet = fieldSet;
     this._formSelector = parametrs.formSelector;
@@ -82,7 +82,6 @@ export class FormValidator {
 // до тех пор, пока не найдет таковое. Если такой элемент найден вернёт true, иначе - false.
   _hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
-      console.log(inputElement.value);
       return !inputElement.validity.valid;
     });
   };

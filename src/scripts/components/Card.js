@@ -1,12 +1,12 @@
-import {viewer, picture, openPopup} from './index.js';
 
 //класс Card, который создаёт карточку с текстом и ссылкой на изображение
-export class Card {
+export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента
-  constructor(obj,templateId) {
+  constructor({obj,handleCardClick},templateId) {
     this._name = obj.name;
     this._link = obj.link;
     this._template = document.querySelector(templateId).content;
+    this._handleCardClick = handleCardClick;
   }
   // содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий
   _getCardElement() {
@@ -23,20 +23,13 @@ export class Card {
   _setListeners = (cardElement, photo) => {
     cardElement.querySelector('.element__trash').addEventListener('click', this._handleDeleteCard);// клик по корзине удаляет карточку
     cardElement.querySelector('.element__like').addEventListener('click', this._handleLikeIcon);// клик по сердцу ставит лайк
-    photo.addEventListener('click', () => this._handlePreviewPicture());//  клик по фото открывает вьювер
+    photo.addEventListener('click', () => {this._handleCardClick(this)});
 
   }
   // содержит приватные методы для каждого обработчика
   _handleDeleteCard = evt => {evt.target.closest('.element').remove()};// удаляет картинку
 
   _handleLikeIcon = evt => {evt.target.classList.toggle("element__like_active")};//изменяет иконку лайка
-
-  _handlePreviewPicture = () => {
-    openPopup(viewer);
-    picture.src = this._link;
-    picture.alt = this._name;
-    viewer.querySelector('.popup__caption').textContent = this._name;
-  };//открывает вьюер
 
   // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки
   createCard() {
