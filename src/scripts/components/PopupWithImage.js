@@ -7,12 +7,8 @@ export default class PopupWithImage extends Popup {
   }
   open() {
     this.popup.classList.add('popup_opened');
-    document.addEventListener('keyup',this._handleEscClose);
-    document.addEventListener('mousedown',(evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        this.close();
-      }
-    });
+    document.addEventListener('keyup',this._handleEscClose.bind(this));
+    document.addEventListener('mousedown',this._closeByOverlay.bind(this));
     const picture = this.popup.querySelector('.popup__image');
     picture.src = this._link;
     picture.alt = this._name;

@@ -21,12 +21,8 @@ export default class PopupWithForm extends Popup {
     const form = this.popup.querySelector('.popup__form');
     form.reset();
     this.popup.classList.remove('popup_opened');
-    document.removeEventListener('keyup',this._handleEscClose);
-    document.removeEventListener('mousedown',(evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-        this.close();
-      };
-    });
+    document.removeEventListener('keyup',this._handleEscClose.bind(this));
+    document.removeEventListener('mousedown',this._closeByOverlay.bind(this));
   }
 
   _setEventListeners() {

@@ -72,15 +72,14 @@ const cardList = new Section({
   collectionPlace);
 cardList.rendererItems();
 
-// информация о пользователе
 const userInfo = new UserInfo('.profile__name','.profile__profession');
-const info = userInfo.getUserInfo();
 
 //всплывающее окно редактирования
 const editForm = new PopupWithForm(formSubmitHandler,'#edit');
 
 //клик по кнопке открывает всплывающее окно редактирования
 openPopupButtonEdit.addEventListener('click', ()=>{
+  const info = userInfo.getUserInfo();
   editForm.popup.querySelector('input[name="popup-name"]').value=info.name;
   editForm.popup.querySelector('input[name="popup-profession"]').value=info.info;
   editForm.open();
