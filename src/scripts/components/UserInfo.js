@@ -5,7 +5,7 @@ export default class UserInfo {
     this._info = document.querySelector(infoSelector);
   }
 
-  getUserInfo = () => {
+  getUserInfo() {
     this._user = {
       name: this._name.textContent,
       info: this._info.textContent
@@ -13,7 +13,7 @@ export default class UserInfo {
     return this._user;
   }
 
-  setUserInfo = (data) => {
+  setUserInfo(data) {
     this._name.textContent = data.name;
     this._info.textContent = data.info;
   }

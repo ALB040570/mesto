@@ -6,7 +6,7 @@ export default class PopupWithForm extends Popup {
     this.data = {[0]:'',[1]:''}
 
   }
-  _getInputValues = () => {
+  _getInputValues() {
     const inputList = Array.from(this.popup.querySelectorAll('.popup__input'));
     let i = 0;
     inputList.forEach((item) => {
@@ -16,16 +16,20 @@ export default class PopupWithForm extends Popup {
     return this.data;
   }
 
-  close = () => {
+  close() {
     this._getInputValues();
     const form = this.popup.querySelector('.popup__form');
     form.reset();
     this.popup.classList.remove('popup_opened');
     document.removeEventListener('keyup',this._handleEscClose);
-    document.removeEventListener('mousedown',this._closeByOverlay);
+    document.removeEventListener('mousedown',(evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+        this.close();
+      };
+    });
   }
 
-  _setEventListeners =() => {
+  _setEventListeners() {
     const closeButton = this.popup.querySelector('.popup__close');
     closeButton.addEventListener('click', ()=> this.close());
     const popupConteinerForEdit = this.popup.querySelector('.popup__form');

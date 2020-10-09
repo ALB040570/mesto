@@ -20,16 +20,16 @@ export default class Card {
     return this._cardElement;
   }
 
-  _setListeners = (cardElement, photo) => {
+  _setListeners(cardElement, photo) {
     cardElement.querySelector('.element__trash').addEventListener('click', this._handleDeleteCard);// клик по корзине удаляет карточку
     cardElement.querySelector('.element__like').addEventListener('click', this._handleLikeIcon);// клик по сердцу ставит лайк
     photo.addEventListener('click', () => {this._handleCardClick(this)});
 
   }
   // содержит приватные методы для каждого обработчика
-  _handleDeleteCard = evt => {evt.target.closest('.element').remove()};// удаляет картинку
+  _handleDeleteCard(evt) {evt.target.closest('.element').remove()};// удаляет картинку
 
-  _handleLikeIcon = evt => {evt.target.classList.toggle("element__like_active")};//изменяет иконку лайка
+  _handleLikeIcon(evt) {evt.target.classList.toggle("element__like_active")};//изменяет иконку лайка
 
   // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки
   createCard() {
