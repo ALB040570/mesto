@@ -8,32 +8,7 @@ import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import FormValidator from '../scripts/components/FormValidator.js';
 
-const initialCards = [
-  {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+import {initialCards} from '../scripts/data/data.js'
 const parametrs = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -53,18 +28,29 @@ const popupConteinerForEdit = editForms.querySelector('.popup__form'); // фор
 const addForms = document.querySelector('#add');//всплывающее окно с формой для добавления фото
 const popupConteinerForAdd = addForms.querySelector('.popup__form');//форма добавления фото
 
+//инстанцирование (создание экземпляра) класса PopupWithImage
+function instantiationPopupWithImage(photo) {
+  const viewer = new PopupWithImage(photo,'#view');
+  viewer.setEventListeners();
+  return viewer;
+}
 
+//инстанцирование (создание экземпляра) класса Card
+function instantiationCard (photo) {
+  const card = new Card({
+    obj: photo,
+    handleCardClick: (photo) =>{
+      const viewer = instantiationPopupWithImage(photo);
+      viewer.open();
+    }
+  },'#template_element');
+  return card
+}
 //первичная отрисовка карточек
 const cardList = new Section({
   data: initialCards,
   renderer: (cardItem) => {
-    const card = new Card({
-      obj: cardItem,
-      handleCardClick: (cardItem) =>{
-        const viewer = new PopupWithImage(cardItem,'#view');
-        viewer.open();
-      }
-    },'#template_element');
+    const card = instantiationCard(cardItem);
     const cardElement = card.createCard();
     cardList.addItem(cardElement);
     }
@@ -76,6 +62,7 @@ const userInfo = new UserInfo('.profile__name','.profile__profession');
 
 //всплывающее окно редактирования
 const editForm = new PopupWithForm(formSubmitHandler,'#edit');
+editForm.setEventListeners();
 
 //клик по кнопке открывает всплывающее окно редактирования
 openPopupButtonEdit.addEventListener('click', ()=>{
@@ -90,14 +77,15 @@ function formSubmitHandler (evt) {
   evt.preventDefault();
   editForm.close();
   const data = {
-    name: editForm.data[0],
-    info: editForm.data[1]
+    name: editForm._formValues.name,
+    info: editForm._formValues.info
     }
   userInfo.setUserInfo(data);
 }
 
 //всплывающее окно добавления фото
 const addForm = new PopupWithForm(formSubmitHandleradd, '#add');
+addForm.setEventListeners();
 
 //клик по кнопке Добавить открывает всплывающее окно Добавления карточки
 openPopupButtonAdd.addEventListener('click',()=> {
@@ -109,16 +97,10 @@ function formSubmitHandleradd (evt) {
   evt.preventDefault();
   addForm.close();
   const newPhoto = {
-    name: addForm.data[0],
-    link: addForm.data[1],
+    name: addForm._formValues.picture,
+    link: addForm._formValues.link
   };
-  const cardNew = new Card({
-    obj: newPhoto,
-    handleCardClick: (newPhoto) =>{
-      const viewer = new PopupWithImage(newPhoto,'#view');
-      viewer.open();
-    }
-  },'#template_element');
+  const cardNew = instantiationCard(newPhoto);
   collectionPlace.prepend(cardNew.createCard());
 }
 

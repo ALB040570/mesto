@@ -1,3 +1,4 @@
+import {sector} from '../constants/constants.js';
 // класс FormValidator, который настраивает валидацию полей формы:
 //принимает в конструктор объект настроек с селекторами и классами формы
 //принимает вторым параметром элемент той формы, которая валидируется
@@ -55,7 +56,6 @@ export default class FormValidator {
         this._toggleButtonState(inputList, buttonElement);
       });
     });
-    const sector = document.querySelector('.profile');
     const openButton = Array.from(sector.querySelectorAll(this.openButtonSelector));
     openButton.forEach((item) => {
       item.addEventListener('click', () => {
