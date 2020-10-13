@@ -28,24 +28,21 @@ const popupConteinerForEdit = editForms.querySelector('.popup__form'); // фор
 const addForms = document.querySelector('#add');//всплывающее окно с формой для добавления фото
 const popupConteinerForAdd = addForms.querySelector('.popup__form');//форма добавления фото
 
-//инстанцирование (создание экземпляра) класса PopupWithImage
-function instantiationPopupWithImage(photo) {
-  const viewer = new PopupWithImage(photo,'#view');
+// инстанцирование (создание экземпляра) класса PopupWithImage
+  const viewer = new PopupWithImage('#view');
   viewer.setEventListeners();
-  return viewer;
-}
 
 //инстанцирование (создание экземпляра) класса Card
 function instantiationCard (photo) {
   const card = new Card({
     obj: photo,
     handleCardClick: (photo) =>{
-      const viewer = instantiationPopupWithImage(photo);
-      viewer.open();
+      viewer.open(photo);
     }
   },'#template_element');
   return card
 }
+
 //первичная отрисовка карточек
 const cardList = new Section({
   data: initialCards,

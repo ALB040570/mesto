@@ -10,7 +10,7 @@ export default class Card {
   }
   // содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий
   _getCardElement() {
-    this._cardElement = this._template.cloneNode(true);//клонируем шаблон
+    this._cardElement = this._template.querySelector('.element').cloneNode(true);//клонируем шаблон
     this._photo = this._cardElement.querySelector('.element__photo'); //именуем элемент карточки "фото"
     this._trashIcon = this._cardElement.querySelector('.element__trash');
     this._likeIcon = this._cardElement.querySelector('.element__like');
@@ -22,9 +22,17 @@ export default class Card {
   }
 
   _setListeners(trash,like, photo) {
-    trash.addEventListener('click', ()=>{trash.closest('.element').remove()});// клик по корзине удаляет карточку
-    like.addEventListener('click', () => {like.classList.toggle("element__like_active")});// клик по сердцу ставит лайк
+    trash.addEventListener('click',() => {this._handleDeleteCard(this)});// клик по корзине удаляет карточку
+    like.addEventListener('click', () => {this._handleLikeIcon(like)});// клик по сердцу ставит лайк
     photo.addEventListener('click', () => {this._handleCardClick(this)});
+  }
+  _handleDeleteCard() {
+    this._cardElement.remove();
+    this._cardElement = null;
+  }
+
+  _handleLikeIcon() {
+    this._likeIcon.classList.toggle("element__like_active");
   }
 
   // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки
