@@ -1,36 +1,33 @@
 //ПЕРЕМЕННЫЕ
 //импортированные переменные
 import '../pages/index.css';
+import Api from '../scripts/components/Api.js';
 import Card from '../scripts/components/Card.js';
 import Section from '../scripts/components/Section.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import FormValidator from '../scripts/components/FormValidator.js';
+import {
+  parametrs,
+  optionsForApi,
+  collectionPlace,
+  openPopupButtonEdit,
+  openPopupButtonAdd,
+  openPopupEditAva,
+  fieldSetEdit,
+  fieldSetAdd,
+  fieldSetEditAva
+} from '../scripts/constants/constants.js'
 
-import {initialCards} from '../scripts/data/data.js'
-const parametrs = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible',
-  formFieldset: '.popup__fieldset',
-  openButtonSelector:'button',
-};
+//ИНСТАНЦИРОВАНИЕ
+//инстанцирование (создание экземпляра) класса Api
+const api = new Api(optionsForApi);
 
-const collectionPlace = document.querySelector('.elements'); //место куда вставляется карточка
-const openPopupButtonEdit = document.querySelector('.profile__button-edit');//кнопка запуска формы для редактирования
-const openPopupButtonAdd = document.querySelector('.profile__button-add');//кнопка запуска формы добавления фото
-const editForms = document.querySelector('#edit');//всплывающее окно с формой для редактирования
-const popupConteinerForEdit = editForms.querySelector('.popup__form'); // форма для редактирования
-const addForms = document.querySelector('#add');//всплывающее окно с формой для добавления фото
-const popupConteinerForAdd = addForms.querySelector('.popup__form');//форма добавления фото
-
-// инстанцирование (создание экземпляра) класса PopupWithImage
-  const viewer = new PopupWithImage('#view');
-  viewer.setEventListeners();
+//инстанцирование (создание экземпляра) класса PopupWithImage
+const viewer = new PopupWithImage('#view');
+viewer.setEventListeners();
 
 //инстанцирование (создание экземпляра) класса Card
 function instantiationCard (photo) {
@@ -38,29 +35,152 @@ function instantiationCard (photo) {
     obj: photo,
     handleCardClick: (photo) =>{
       viewer.open(photo);
-    }
+    },
+    handleLikeClick: (card) => {
+     // ...что должно произойти при клике на лайк
+      const liker = {
+        name: document.querySelector('.profile__name').textContent,
+        about: document.querySelector('.profile__profession').textContent,
+        avatar: document.querySelector('.profile__avatar').src
+      };
+      const likeApi = !card.checkIsLike()? api.delOrPutData('PUT','/cards/likes',card.cardId): api.delOrPutData('DELETE','/cards/likes',card.cardId);
+      card.handleLikeIcon(likeApi,liker);
+    },
+    handleDeleteIconClick: (card) => {
+     // ...что должно произойти при клике на удаление
+
+      confirmForm.setCardId(card);
+      confirmForm.open();
+    },
   },'#template_element');
   return card
 }
 
-//первичная отрисовка карточек
-const cardList = new Section({
-  data: initialCards,
-  renderer: (cardItem) => {
-    const card = instantiationCard(cardItem);
-    const cardElement = card.createCard();
-    cardList.addItem(cardElement);
+//инстанцирование (создание экземпляра) класса PopupWithSubmit
+const confirmForm = new PopupWithSubmit(formSubmitHandlerYes,'#yes');
+confirmForm.setEventListeners();
+
+//инстанцирование (создание экземпляра) класса UserInfo
+const userInfo = new UserInfo('.profile__name','.profile__profession');
+
+//инстанцирование (создание экземпляра) класса PopupWithForm
+const editForm = new PopupWithForm(formSubmitHandler,'#edit');
+editForm.setEventListeners();
+const editAvaForm = new PopupWithForm(formSubmitHandlerEditAva, '#updata');
+editAvaForm.setEventListeners();
+const addForm = new PopupWithForm(formSubmitHandleradd, '#add');
+addForm.setEventListeners();
+
+
+
+//Загрузка информации о пользователе с сервера
+let userId = '';
+const userInfoFromServer = api.getDataFromServer('/users/me');
+userInfoFromServer.then((user) => {
+  console.log(user);
+  document.querySelector('.profile__name').textContent = user.name;
+  document.querySelector('.profile__profession').textContent=user.about;
+  document.querySelector('.profile__avatar').src = user.avatar;
+  userId = user._id;
+  return userId;
+})
+.catch((err) => {console.log(err);});
+export {userId};
+
+//Загрузка карточек с сервера в секцию
+const cards = api.getDataFromServer('/cards');
+cards.then((result) => {
+  var initialCards = result.map(item =>item);
+  console.log(initialCards);
+  return initialCards.reverse();
+})
+.then ((initialCards) => {
+  const cardList = new Section({
+    data: initialCards,
+    renderer: (cardItem) => {
+      const card = instantiationCard(cardItem);
+      const cardElement = card.createCard();
+      cardList.addItem(cardElement);
     }
   },
   collectionPlace);
-cardList.rendererItems();
+  cardList.rendererItems();
+})
+.catch((err) => {console.log(err);});
 
-const userInfo = new UserInfo('.profile__name','.profile__profession');
+//ФУНКЦИИ
+//визуализация ожидания ответа сервера
+function renderLoading(isLoading) {
+  if (isLoading) {
+    document.querySelector('.popup__button').textContent = 'Сохранение...';
+  } else {
+    document.querySelector('.popup__button').textContent = 'Сохранить';
+  }
+}
 
-//всплывающее окно редактирования
-const editForm = new PopupWithForm(formSubmitHandler,'#edit');
-editForm.setEventListeners();
+//функция сохранения данных формы редактирования инфы о пользователе
+function formSubmitHandler (evt) {
+  evt.preventDefault();
+  renderLoading(true);
+  editForm.close();
+  const corectdData = {
+    name: editForm._formValues.name,
+    info: editForm._formValues.info
+    }
+  //загрузка на сервер и отображение измененной информации о пользователе
+  const corectUserInfo = api.patchOrPostData('PATCH', '/users/me', 'info', corectdData);
+  corectUserInfo.then((res)=>{
+    userInfo.setUserInfo(res);})
+  .catch((err) => {console.log(err);})
+  .finally(()=>{renderLoading(false);});
+}
 
+//функция сохранения нового аватара
+function formSubmitHandlerEditAva(evt) {
+  evt.preventDefault();
+  renderLoading(true);
+  editAvaForm.close();
+  const newPhoto = {
+    link: editAvaForm._formValues.link,
+  }
+  //загрузка на сервер и отображение измененного аватара
+  const newAvatar = api.patchOrPostData('PATCH', '/users/me/avatar', 'avatar', newPhoto);
+  newAvatar.then ((res)=>{openPopupEditAva.src = res.avatar;})
+  .catch((err) => {console.log(err);})
+  .finally(()=>{renderLoading(false);});
+};
+
+//функция сохранения данных формы добавления фото
+function formSubmitHandleradd (evt) {
+  evt.preventDefault();
+  addForm.close();
+  const newPhoto = {
+    name: addForm._formValues.picture,
+    link: addForm._formValues.link,
+    likes: {},
+    owner: {}
+  };
+  //Добавление новой карточки на сервер
+  const newCard = api.patchOrPostData('POST','/cards', 'photo', newPhoto);
+  newCard.then ((res)=>{
+    const cardNew = instantiationCard(res);
+    collectionPlace.prepend(cardNew.createCard());
+  })
+  .catch((err) => {console.log(err);})
+  .finally(()=>{renderLoading(false);});
+}
+
+//функция удаления фото
+function formSubmitHandlerYes (evt) {
+  evt.preventDefault();
+  confirmForm.close();
+  //Удаление карточки на серверe
+  const delCardApi = api.delOrPutData('DELETE','/cards',confirmForm.delCardId);
+  confirmForm.delCard.handleDeleteCard(delCardApi);
+
+}
+
+//СЛУШАТЕЛИ
 //клик по кнопке открывает всплывающее окно редактирования
 openPopupButtonEdit.addEventListener('click', ()=>{
   const info = userInfo.getUserInfo();
@@ -69,37 +189,16 @@ openPopupButtonEdit.addEventListener('click', ()=>{
   editForm.open();
 });
 
-//функция сохранение данных формы редактирования инфы о пользователе
-function formSubmitHandler (evt) {
-  evt.preventDefault();
-  editForm.close();
-  const data = {
-    name: editForm._formValues.name,
-    info: editForm._formValues.info
-    }
-  userInfo.setUserInfo(data);
-}
-
-//всплывающее окно добавления фото
-const addForm = new PopupWithForm(formSubmitHandleradd, '#add');
-addForm.setEventListeners();
+//клик по аватару открывает всплываающее окно редактирования аватара
+openPopupEditAva.addEventListener('click',()=> {
+  editAvaForm.open();
+});
 
 //клик по кнопке Добавить открывает всплывающее окно Добавления карточки
 openPopupButtonAdd.addEventListener('click',()=> {
   addForm.open();
 });
 
-//функция сохранения данных формы добавления фото
-function formSubmitHandleradd (evt) {
-  evt.preventDefault();
-  addForm.close();
-  const newPhoto = {
-    name: addForm._formValues.picture,
-    link: addForm._formValues.link
-  };
-  const cardNew = instantiationCard(newPhoto);
-  collectionPlace.prepend(cardNew.createCard());
-}
 
 //установка валидаторов
 const formList = Array.from(document.querySelectorAll(parametrs.formSelector));
@@ -109,9 +208,12 @@ formList.forEach((item) => {
   });
 });
 
-const fieldSetEdit = popupConteinerForEdit.querySelector(parametrs.formFieldset);
+
 const validatorEditForm = new FormValidator(parametrs, fieldSetEdit, editForm);
 validatorEditForm.enableValidation();
-const fieldSetAdd = popupConteinerForAdd.querySelector(parametrs.formFieldset);
+
 const validatorAddForm = new FormValidator(parametrs, fieldSetAdd, addForm);
 validatorAddForm.enableValidation();
+
+const validatorEditAvaForm = new FormValidator(parametrs, fieldSetEditAva, editAvaForm);
+validatorEditAvaForm.enableValidation();

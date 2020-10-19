@@ -20,7 +20,6 @@ export default class PopupWithForm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    const popupConteinerForEdit = this.popup.querySelector('.popup__form');
-    popupConteinerForEdit.addEventListener('submit', this._callBack);
+    this._form.addEventListener('submit', this._callBack);
   }
 }

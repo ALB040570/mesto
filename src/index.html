@@ -15,6 +15,7 @@
       <section class="profile">
         <div class="profile__grid">
           <img src="./images/kusto.jpg" alt="Аватар" class="profile__avatar">
+          <img src="./images/editava.png" alt="Изменить" class="profile__avatar profile__avatar_edit">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <p class="profile__profession">Исследователь океана</p>
           <button type="button" class="profile__button-edit"></button>
@@ -38,6 +39,19 @@
           <span class="popup__error" id="name-error"></span>
           <input placeholder="Введите информацию о деятельности" required class="popup__input popup__input_type_description" name = "popup-profession" id="info" minlength="2" maxlength="200">
           <span class="popup__error" id="info-error"></span>
+          <button type="submit" class="popup__button">Сохранить</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="popup" id="updata">
+    <div class="popup__grid">
+      <button type="button" class="popup__close"></button>
+      <form action=# name="avatar" class="popup__form" novalidate>
+        <fieldset class="popup__fieldset">
+          <legend class="popup__title">Обновить аватар</legend>
+          <input placeholder="Ссылка для картинки" required class="popup__input popup__input_type_description" name = "photo-link" id="link" type="url">
+          <span class="popup__error" id="link-error"></span>
           <button type="submit" class="popup__button">Сохранить</button>
         </fieldset>
       </form>
@@ -69,11 +83,25 @@
       </div>
     </div>
   </div>
+  <div class="popup" id="yes">
+    <div class="popup__grid">
+      <button type="button" class="popup__close"></button>
+      <form action=# name="confirmation" id="confirm" class="popup__form" novalidate>
+        <fieldset class="popup__fieldset">
+          <legend class="popup__title">Вы уверены?</legend>
+          <button type="submit" class="popup__button">Да</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
   <template id="template_element">
     <li class="element">
       <div class="element__bord"><img  alt="фото места" class="element__photo"></div>
       <h2 class="element__title"></h2>
-      <button type="button" class="element__like"></button>
+      <div class="element__like-group">
+        <button type="button" class="element__like"></button>
+        <p class="element__like-counter">100</p>
+      </div>
       <button type="button" class="element__trash"></button>
     </li>
   </template>
