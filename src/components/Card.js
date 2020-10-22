@@ -1,17 +1,28 @@
 
 //класс Card, который создаёт карточку с текстом и ссылкой на изображение
-import {userId} from '../../pages/index.js';
+
 export default class Card {
   // принимает в конструктор её данные и селектор её template-элемента
-  constructor({obj,handleCardClick,handleLikeClick,handleDeleteIconClick},templateId) {
+  constructor({
+    obj,
+    user,
+    userId,
+    handleCardClick,
+    handleLikeClick,
+    handleLikeSecondClick,
+    handleDeleteIconClick},
+    templateId) {
     this._name = obj.name;
     this._link = obj.link;
     this._like = obj.likes;
     this.cardId= obj._id;
     this._ownerId = obj.owner._id;
+    this._user = user;
+    this._userId =userId;
     this._template = document.querySelector(templateId).content;
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
+    this._handleLikeSecondClick = handleLikeSecondClick;
     this._handleDeleteIconClick = handleDeleteIconClick;
   }
   // содержит приватные методы, которые работают с разметкой, устанавливают слушателей событий
@@ -19,7 +30,7 @@ export default class Card {
     this._cardElement = this._template.querySelector('.element').cloneNode(true);//клонируем шаблон
     this._photo = this._cardElement.querySelector('.element__photo'); //именуем элемент карточки "фото"
     this._trashIcon = this._cardElement.querySelector('.element__trash');
-    if(this._ownerId!==userId) {this._trashIcon.remove();};
+    if(this._ownerId!==this._userId) {this._trashIcon.remove();};
     this._likeIcon = this._cardElement.querySelector('.element__like');
     if (this._hasLikeFromMe()) {this._likeIcon.classList.add("element__like_active");};
     this._likeCounter = this._cardElement.querySelector('.element__like-counter');
@@ -31,39 +42,39 @@ export default class Card {
 
     return this._cardElement;
   }
+
   _hasLikeFromMe() {
     return this._like.some((obj) => {
-      return (obj._id === userId);
+      return (obj._id === this._userId);
     });
-  };
+  }
 
   _setListeners(trash,like, photo) {
     trash.addEventListener('click',() => {this._handleDeleteIconClick(this)});// клик по корзине удаляет карточку
-    like.addEventListener('click', () => {this._handleLikeClick(this)});// клик по сердцу ставит лайк
+    like.addEventListener('click', () => {this._handleLikeIcon(this)});// клик по сердцу ставит лайк
     photo.addEventListener('click', () => {this._handleCardClick(this)});
   }
 
-  handleDeleteCard(delApiFromIndex) {
-    delApiFromIndex.then(()=>{
-      this._cardElement.remove();
-      this._cardElement = null;
-    })
-    .catch((err) => {console.log(err);})
+  handleDeleteCard() {
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 
-  checkIsLike() {
+  _checkIsLike() {
     return (this._likeIcon.classList.contains("element__like_active"))? true: false;
   }
 
-  handleLikeIcon(likeApiFromIndex,likerFromIndex) {
+  _handleLikeIcon() {
     this._likeIcon.classList.toggle("element__like_active");
-    likeApiFromIndex.then(()=>{
-      this.checkIsLike()? this._like.push(likerFromIndex):this._like.pop(likerFromIndex);
-      this._likeCounter.textContent = this._like.length;
-    })
-    .catch((err) => {console.log(err);})
+    if (this._checkIsLike()) {
+      this._handleLikeClick(this);
+      this._like.push(this._user);
+    } else {
+      this._handleLikeSecondClick(this);
+      this._like.pop(this._user);
+    }
+    this._likeCounter.textContent = this._like.length;
   }
-
 
   // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки
   createCard() {
