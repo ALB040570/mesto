@@ -67,13 +67,20 @@ export default class Card {
   _handleLikeIcon() {
     this._likeIcon.classList.toggle("element__like_active");
     if (this._checkIsLike()) {
-      this._handleLikeClick(this);
-      this._like.push(this._user);
+      this._handleLikeClick(this)
+      .then(()=>{
+        this._like.push(this._user);
+        this._likeCounter.textContent = this._like.length;
+      })
+      .catch((err) => {console.log(err);});
     } else {
-      this._handleLikeSecondClick(this);
-      this._like.pop(this._user);
+      this._handleLikeSecondClick(this)
+      .then(()=>{
+        this._like.splice(this._like.indexOf(this._user),1);
+        this._likeCounter.textContent = this._like.length;
+      })
+      .catch((err) => {console.log(err);});
     }
-    this._likeCounter.textContent = this._like.length;
   }
 
   // содержит один публичный метод, который возвращает полностью работоспособный и наполненный данными элемент карточки

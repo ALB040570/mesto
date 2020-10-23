@@ -47,8 +47,8 @@ function instantiationCard (photo) {
     user:userInfo.getUserInfo(),
     userId: thisUserId,
     handleCardClick: (photo) =>{viewer.open(photo);},
-    handleLikeClick: (card) => {api.putLike(card.cardId)},
-    handleLikeSecondClick: (card) => {api.deleteLike(card.cardId)},
+    handleLikeClick: (card) => {return api.putLike(card.cardId)},
+    handleLikeSecondClick: (card) => {return api.deleteLike(card.cardId)},
     handleDeleteIconClick: (card) => {
       confirmForm.setCardId(card);
       confirmForm.open();
@@ -75,22 +75,21 @@ addForm.setEventListeners();
 
 //Загрузка информации о пользователе и карточек с сервера
 let thisUserId = '';
-let initialCards ={};
+
 let cardList={};
 const userInfoFromServer = api.getUsersInfo();
 const cardsFromSer= api.getCards();
 Promise.all([userInfoFromServer,cardsFromSer])
 .then((res) => {
-  console.log(res[0]);
-  userInfo.setUserInfo(res[0]);
-  thisUserId = res[0]._id;
-  initialCards = res[1].map(item =>item)
-  console.log(initialCards);
-  return (thisUserId,initialCards.reverse());
+  const [user, cards] = [res[0], res[1]]
+  userInfo.setUserInfo(user);
+  thisUserId = user._id;
+  let initialCards = cards.map(item =>item);
+  return  [thisUserId, initialCards.reverse()];
 })
-.then (()=>{
+.then ((data)=>{
   cardList = new Section({
-    data:initialCards,
+    data: data[1],
     renderer: (cardItem) => {
       const card = instantiationCard(cardItem);
       const cardElement = card.createCard();
@@ -146,16 +145,16 @@ function formSubmitHandlerEditAva(evt) {
     editAvaForm.close();})
   .catch((err) => {console.log(err);})
   .finally(()=>{renderLoading(editAvaForms,false);});
-};
+}
 
 //функция сохранения данных формы добавления фото
 function formSubmitHandleradd (evt) {
   evt.preventDefault();
   renderLoading(addForms,true);
-  addForm.getInputValues();
+  const formValues = addForm.getInputValues();
   const newPhoto = {
-    name: addForm._formValues.picture,
-    link: addForm._formValues.link,
+    name: formValues.picture,
+    link: formValues.link,
     likes: {},
     owner: {}
   };
@@ -175,9 +174,10 @@ function formSubmitHandlerYes (evt) {
   //Удаление карточки на серверe
   api.deleteCard(confirmForm.delCardId)
   .then (()=>{
-    confirmForm.delCard.handleDeleteCard()
-  });
-  confirmForm.close();
+    confirmForm.delCard.handleDeleteCard();
+    confirmForm.close();
+  })
+  .catch((err) => {console.log(err);});
 }
   const editFormInputName = editForm.popup.querySelector('input[name="popup-name"]');
   const editFormInputInfo = editForm.popup.querySelector('input[name="popup-profession"]');

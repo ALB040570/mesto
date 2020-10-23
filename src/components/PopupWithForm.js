@@ -14,15 +14,12 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
-    // this._getInputValues();
-
     this._form.reset();
     super.close();
   }
 
   setEventListeners() {
     super.setEventListeners();
-
     this._form.addEventListener('submit', this._callBack);
   }
 }
